@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bq8cdsnxpscqs"]
+
+[ext_resource type="Script" path="res://game_scenes/shop.gd" id="1_edlot"]
+[ext_resource type="PackedScene" uid="uid://cpwmax3kf4sya" path="res://game_scenes/shop_ui.tscn" id="2_epm6x"]
+[ext_resource type="Texture2D" uid="uid://c7o4yxgy6deob" path="res://assets/owner.png" id="3_toe0j"]
+
+[node name="Shop" type="Node2D"]
+script = ExtResource("1_edlot")
+
+[node name="HUD" parent="." instance=ExtResource("2_epm6x")]
+
+[node name="ShopUI" parent="HUD" index="0"]
+theme_override_constants/margin_right = 20
+
+[node name="Owner" type="Sprite2D" parent="."]
+position = Vector2(672, 448)
+texture = ExtResource("3_toe0j")
+
+[connection signal="bank_changed" from="." to="HUD" method="_on_shop_bank_changed"]
+[connection signal="cash_changed" from="." to="HUD" method="_on_shop_cash_changed"]
+[connection signal="cash_fee_loss_changed" from="." to="HUD" method="_on_shop_cash_fee_loss_changed"]
+[connection signal="electronic_fee_loss_changed" from="." to="HUD" method="_on_shop_electronic_fee_loss_changed"]
+[connection signal="income_lost_changed" from="." to="HUD" method="_on_shop_income_lost_changed"]
+[connection signal="insurance_excess_changed" from="." to="HUD" method="_on_shop_insurance_excess_changed"]
+[connection signal="insurance_premium_changed" from="." to="HUD" method="_on_shop_insurance_premium_changed"]
+[connection signal="robbery_chance_changed" from="." to="HUD" method="_on_shop_robbery_chance_changed"]
+
+[editable path="HUD"]

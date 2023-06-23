@@ -1,0 +1,108 @@
+~ main
+
+% {{customer.name}}: Posso pagare {{payment_method.text}}?
+% {{customer.name}}: Vorrei pagare {{payment_method.text}}
+- Sì, [[certo|certamente|ecco qua]]
+	do handle_payment(customer, payment_method)
+	do loop()
+- [[{{amount}} sarebbe un po' poco|Meno di {{payment_method.fee_threshold}} soldi mi costa troppo]] [if payment_method.electronic and amount < payment_method.fee_threshold]
+	do customer.decrement_denial_tolerance()
+	=> denial_tolerance_check
+- No, [[oggi non funziona|abbiamo un problema tecnico]] [if payment_method.electronic and !electronic_offered]
+	do customer.decrement_denial_tolerance()
+	=> denial_tolerance_check
+- Non preferisce un pagamento elettronico? [if !payment_method.electronic]
+	do customer.decrement_cash_preference()
+	set electronic_offered = true
+	=> cash_wear_down
+=> END
+
+~ cash_wear_down
+
+% {{customer.name}}: Eh, ma così risparmiamo sulle commissioni!
+% {{customer.name}}: Eh, ma così mi tracciano, è un rischio per la privacy!
+% {{customer.name}}: E se poi qualcuno mi ruba le informazioni e mi entra nel conto?
+- Ha ragione, [[viva il contante!|meglio i contanti!|non mi ci faccia pensare!]]
+	do handle_payment(customer, payment_method)
+	do loop()
+- No, [[sono tutte balle!|in realtà non è proprio così.|c'è di peggio...]]
+	do customer.decrement_cash_preference()
+	do select_payment_method(customer)
+	=> main
+=> END
+
+~ denial_tolerance_check
+
+if customer.denial_tolerance == 0
+	if customer.initial_denial_tolerance >= 3
+		{{ customer.name }}: [[E allora niente|Peccato|Pazienza]], [[andrò da un'altra parte|sarà per un'altra volta|ci penserò prima di tornare qui]].
+		do handle_income_loss()
+		do loop()
+	elif customer.initial_denial_tolerance < 3
+		{{ customer.name }}: Forse posso pagare [[in altro modo...|con un altro metodo...]]
+		do customer.decrement_denial_tolerance()
+		do select_payment_method(customer)
+		=> main
+	elif customer.initial_denial_tolerance < 2
+		{{ customer.name }}: Va bene, per questa volta pago in contanti...
+		do handle_payment(customer, payment_methods[0])
+		do loop()
+else
+	=> main
+endif
+
+~ ask_bank_run
+
+A fine giornata hai {{bank}} soldi in banca e {{cash}} soldi in contanti.
+- Porta i contanti in banca.
+	do handle_bank_run()
+- Torna a casa.
+	do run()
+=> END
+
+~ end_bank_run
+% E anche oggi abbiamo portato a casa la giornata.
+% Bene, e ora spritz!
+% Certo che è stato un po' un rischio, con tutto quel contante, ma è andata bene.
+% Domani è un altro giorno!
+do run()
+=> END
+
+~ street_robbery
+
+% Ladro: In alto le mani!
+% Ladro: O la borsa o la vita!
+% Ladro: Svuota il portafogli!
+% Ladro: Svuota le tasche!
+
+Sei stato derubato mentre andavi in banca! La polizia è arrivata troppo tardi per fermare il ladro e hai perso {{stolen_cash}} soldi!
+- Chiama l'assicurazione
+	do handle_insurance_claim(cash)
+	=> insurance_claim_end
+- Torna a casa
+	do run()
+=> END
+
+~ shop_robbery
+% Ladro: In alto le mani!
+% Ladro: O la borsa o la vita!
+% Ladro: Svuota il portafogli!
+% Ladro: Svuota le tasche!
+
+Sei stato rapinato in negozio! La polizia è arrivata troppo tardi per fermare il ladro e hai perso {{stolen_cash}} soldi!
+- Chiama l'assicurazione
+	do handle_insurance_claim(cash)
+	=> insurance_claim_end
+- Chiudi e torna a casa
+	do run()
+=> END
+
+
+~ insurance_claim_end
+
+L'assicurazione ti restituisce {{insurance_refund}}. Il nuovo premio è {{insurance_premium}} con una franchigia di {{insurance_excess}}.
+do run()
+
+=> END
+
+=> END!
