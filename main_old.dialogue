@@ -19,16 +19,26 @@
 
 ~ cash_wear_down
 
-% {{customer.name}}: Eh, ma così risparmiamo sulle commissioni!
-% {{customer.name}}: Eh, ma così mi tracciano, è un rischio per la privacy!
-% {{customer.name}}: E se poi qualcuno mi ruba le informazioni e mi entra nel conto?
-- Ha ragione, [[viva il contante!|meglio i contanti!|non mi ci faccia pensare!]]
-	do handle_payment(customer, payment_method)
-	do loop()
-- No, [[sono tutte balle!|in realtà non è proprio così.|c'è di peggio...]]
-	do customer.decrement_cash_preference()
-	do select_payment_method(customer)
+if customer.must_use_cash and not customer_has_explained_conspiracy
+	% {{customer.name}}: Assolutamente no, il denaro elettronico è un complotto delle elite per tenerci schiavi!
+	set customer_has_explained_conspiracy = true
 	=> main
+elif customer.must_use_cash and customer_has_explained_conspiracy
+	set customer.denial_tolerance = 0
+	set customer.initial_denial_tolerance = 10
+	=> denial_tolerance_check
+else
+	% {{customer.name}}: Eh, ma così risparmiamo sulle commissioni!
+	% {{customer.name}}: Eh, ma così mi tracciano, è un rischio per la privacy!
+	% {{customer.name}}: E se poi qualcuno mi ruba le informazioni e mi entra nel conto?
+	- Ha ragione, [[viva il contante!|meglio i contanti!|non mi ci faccia pensare!]]
+		do handle_payment(customer, payment_method)
+		do loop()
+	- No, [[sono tutte balle!|in realtà non è proprio così.|c'è di peggio…]]
+		do customer.decrement_cash_preference()
+		do select_payment_method(customer)
+		=> main
+endif
 => END
 
 ~ denial_tolerance_check
@@ -39,12 +49,12 @@ if customer.denial_tolerance == 0
 		do handle_income_loss()
 		do loop()
 	elif customer.initial_denial_tolerance < 3
-		{{ customer.name }}: Forse posso pagare [[in altro modo...|con un altro metodo...]]
+		{{ customer.name }}: Forse posso pagare [[in altro modo…|con un altro metodo…]]
 		do customer.decrement_denial_tolerance()
 		do select_payment_method(customer)
 		=> main
 	elif customer.initial_denial_tolerance < 2
-		{{ customer.name }}: Va bene, per questa volta pago in contanti...
+		{{ customer.name }}: Va bene, per questa volta pago in contanti…
 		do handle_payment(customer, payment_methods[0])
 		do loop()
 else

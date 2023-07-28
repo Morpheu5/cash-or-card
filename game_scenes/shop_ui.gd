@@ -1,13 +1,16 @@
 extends CanvasLayer
 
-@onready var bankLabel = $ShopUI/Panel/MarginContainer/VBoxContainer/BankLabel
-@onready var cashLabel = $ShopUI/Panel/MarginContainer/VBoxContainer/CashLabel
-@onready var insurancePremiumLabel = $ShopUI/Panel/MarginContainer/VBoxContainer/InsurancePremiumLabel
-@onready var insuranceExcessLabel = $ShopUI/Panel/MarginContainer/VBoxContainer/InsuranceExcessLabel
-@onready var incomeLossLabel = $ShopUI/Panel/MarginContainer/VBoxContainer/IncomeLossLabel
-@onready var electronicFeeLossLabel = $ShopUI/Panel/MarginContainer/VBoxContainer/ElectronicFeeLossLabel
-@onready var cashFeeLossLabel = $ShopUI/Panel/MarginContainer/VBoxContainer/CashFeeLossLabel
-@onready var robberyChanceLabel = $ShopUI/Panel/MarginContainer/VBoxContainer/RobberyChanceLabel
+@onready var bankLabel = %BankLabel
+@onready var cashLabel = %CashLabel
+@onready var insurancePremiumLabel = %InsurancePremiumLabel
+@onready var insuranceExcessLabel = %InsuranceExcessLabel
+@onready var incomeLossLabel = %IncomeLossLabel
+@onready var electronicFeeLossLabel = %ElectronicFeeLossLabel
+@onready var cashFeeLossLabel = %CashFeeLossLabel
+@onready var robberyChanceLabel = %RobberyChanceLabel
+
+@onready var customerNameLanel = %CustomerNameLabel
+@onready var amountLabel = %AmountLabel
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -43,4 +46,5 @@ func _on_shop_cash_fee_loss_changed(new_value):
 
 func _on_shop_robbery_chance_changed(new_value):
 	print(new_value)
-	robberyChanceLabel.text = "Rischio rapina: %d %%" % (new_value * 100)
+	robberyChanceLabel.text = "Rischio rapina: %.1f %%" % (new_value * 100)
+

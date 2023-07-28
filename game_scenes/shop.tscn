@@ -7,14 +7,25 @@
 [node name="Shop" type="Node2D"]
 script = ExtResource("1_edlot")
 
+[node name="Background" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Owner" type="Sprite2D" parent="Background/PanelContainer"]
+position = Vector2(0, -40)
+scale = Vector2(0.714286, 0.714286)
+texture = ExtResource("3_toe0j")
+centered = false
+
 [node name="HUD" parent="." instance=ExtResource("2_epm6x")]
 
 [node name="ShopUI" parent="HUD" index="0"]
 theme_override_constants/margin_right = 20
-
-[node name="Owner" type="Sprite2D" parent="."]
-position = Vector2(672, 448)
-texture = ExtResource("3_toe0j")
 
 [connection signal="bank_changed" from="." to="HUD" method="_on_shop_bank_changed"]
 [connection signal="cash_changed" from="." to="HUD" method="_on_shop_cash_changed"]
