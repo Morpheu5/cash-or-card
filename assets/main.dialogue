@@ -1,7 +1,6 @@
 ~ start
 
-# do emit("customer_debug")
-
+{{customer.name}} si avvicina alla cassa. [[I suoi acquisti ammontano a|Gli articoli che ha con sé costano un totale di]] {{amount}} soldi.
 if (customer.payment_method == "cash")
 	% {{customer.name}}: Vorrei pagare in contanti
 	% {{customer.name}}: Posso pagare in contanti?
@@ -22,8 +21,8 @@ endif
 	=> propose_card_payment
 => END
 
-~ propose_card_payment
 
+~ propose_card_payment
 if customer.must_use_cash and customer.denial_tolerance > 0
 	set customer_has_explained_conspiracy = true
 	% {{customer.name}}: Assolutamente no, il denaro elettronico è un modo per renderci schiavi dei sistemi finanziari globali!
@@ -38,14 +37,13 @@ if customer.must_use_cash and customer.denial_tolerance > 0
 	% {{customer.name}}: I contanti sono un diritto costituzionale che ci garantisce l'indipendenza finanziaria e la libertà di scelta.
 	% {{customer.name}}: L'uso dei contanti favorisce la trasparenza nelle transazioni, evitando la creazione di un sistema finanziario completamente digitale che può essere manipolato a piacimento.
 	% {{customer.name}}: I pagamenti elettronici rendono le persone dipendenti da un sistema tecnologico che potrebbe essere facilmente sottoposto a controllo o restrizioni da parte delle autorità.
-	% {{customer.name}}: I contanti sono una forma di denaro a corso legale, mentre i pagamenti elettronici sono soggetti a regolamenti e limitazioni imposte da terze parti che possono influenzare negativamente la nostra libertà finanziaria.
+	% {{customer.name}}: I contanti sono l'unica forma di denaro a corso legale, mentre i pagamenti elettronici sono soggetti a regolamenti e limitazioni imposte da terze parti che possono influenzare negativamente la nostra libertà finanziaria.
 	- [[Ha ragione|Giusto|Ah, sì]], meglio usare i contanti
 		do handle_payment("cash")
 		do loop()
 	- [[Non è proprio verissimo…|Le cose non stanno proprio così, in realtà…|A me non risulta…]] comunque [[continuo a preferire|a me fa più comodo]] la carta.
 		do customer.decrement_cash_preference()
 		do customer.decrement_denial_tolerance()
-		# do emit("customer_debug")
 		=> propose_card_payment
 elif customer.must_use_cash and customer.denial_tolerance == 0
 	% {{customer.name}}: Vedo che è saldo nel suo supporto al NWO. Dirò a tutti di evitare questo negozio. Si tenga la sua merce!
@@ -75,7 +73,6 @@ elif customer.prefers_cash > 0 and customer.denial_tolerance > 0
 	- No, [[non è proprio così]], e poi [[pagare con|usare]] la carta [[conviene|ha i suoi vantaggi|]]
 		do customer.decrement_cash_preference()
 		do customer.decrement_denial_tolerance()
-		# do emit("customer_debug")
 		=> propose_card_payment
 elif customer.prefers_cash == 0 and customer.denial_tolerance > 0
 	% {{customer.name}}: Va bene, per questa volta pago con la carta…
@@ -91,8 +88,8 @@ else
 endif
 => END
 
-~ propose_cash_payment
 
+~ propose_cash_payment
 if customer.denial_tolerance > 0
 	% {{customer.name}}: Preferisco la carta, così evito di portarmi in giro un sacco di contanti, sa com'è… la sicurezza!
 	% {{customer.name}}: Eh, ma con la carta tengo meglio traccia delle spese.
@@ -105,8 +102,9 @@ if customer.denial_tolerance > 0
 	- [[Giusto|Bene|Ottimo|Perfetto]], [[vada per la carta|eccole il terminale|pronti con la carta]]. => handle_card_payment
 	- Continuo a preferire i contanti
 		do customer.decrement_denial_tolerance()
-		# do emit("customer_debug")
 		=> propose_cash_payment
+	- I contanti sono l'unica forma di pagamento in corso legale
+		=> legal_tender
 elif customer.denial_tolerance == 0 and customer.initial_denial_tolerance >= 3
 	% {{customer.name}}: E allora niente, me ne andrò da un'altra parte, magari trovo qualcuno che non evade…
 	% {{customer.name}}: [[Ma guarda te|Incredibile]], accettare i pagamenti elettronici sarebbe obbligatorio ma c'è ancora gente come lei che pensa di essere al di sopra della legge. Venda questa roba a qualcun altro.
@@ -124,8 +122,16 @@ endif
 => END
 
 
-~ handle_card_payment
+~ legal_tender
+% {{customer.name}}: Certo, ma resta l'obbligo di accettare i pagamenti elettronici
+- [[Giusto|Bene|Ottimo|Perfetto]], [[vada per la carta|eccole il terminale|pronti con la carta]]. => handle_card_payment
+- Continuo a preferire i contanti
+	do customer.decrement_denial_tolerance()
+	=> propose_cash_payment
+=> END
 
+
+~ handle_card_payment
 Scegli un metodo di pagamento elettronico:
 - POS (commissione\: {{100 * get_fee("card", amount)}}%)
 	do handle_payment("card")
@@ -136,16 +142,17 @@ Scegli un metodo di pagamento elettronico:
 - OddlyPay (commissione\: {{100 * get_fee("oddlypay", amount)}}%)
 	do handle_payment("oddlypay")
 	do loop()
+=> END
 
 
 ~ ask_bank_run
-
 A fine giornata hai {{bank}} soldi in banca e {{cash}} soldi in contanti.
 - Porta i contanti in banca.
 	do handle_bank_run()
 - Torna a casa.
 	do run()
 => END
+
 
 ~ end_bank_run
 % E anche oggi abbiamo portato a casa la giornata.
@@ -156,17 +163,17 @@ do run()
 => END
 
 ~ street_robbery
-
 % Ladro: In alto le mani!
 % Ladro: O la borsa o la vita!
 % Ladro: Svuota il portafogli!
 % Ladro: Svuota le tasche!
+set cash = 0.0
 
 Sei stato derubato mentre andavi in banca! La polizia è arrivata troppo tardi per fermare il ladro e hai perso {{stolen_cash}} soldi!
-- Chiama l'assicurazione
+- Chiama l'assicurazione (recuperi {{potential_loss}}) soldi, il premio salirà)
 	do handle_insurance_claim(cash)
 	=> insurance_claim_end
-- Torna a casa
+- Torna a casa (perdi {{stolen_cash}} soldi)
 	do run()
 => END
 
@@ -175,18 +182,18 @@ Sei stato derubato mentre andavi in banca! La polizia è arrivata troppo tardi p
 % Ladro: O la borsa o la vita!
 % Ladro: Svuota il portafogli!
 % Ladro: Svuota le tasche!
+set cash = 0.0
 
 Sei stato rapinato in negozio! La polizia è arrivata troppo tardi per fermare il ladro e hai perso {{stolen_cash}} soldi!
-- Chiama l'assicurazione
+- Chiama l'assicurazione (recuperi {{potential_loss}}) soldi, il premio salirà)
 	do handle_insurance_claim(cash)
 	=> insurance_claim_end
-- Chiudi e torna a casa
+- Chiudi e torna a casa (perdi {{stolen_cash}} soldi)
 	do run()
 => END
 
 
 ~ insurance_claim_end
-
 L'assicurazione ti restituisce {{insurance_refund}}. Il nuovo premio è {{insurance_premium}} con una franchigia di {{insurance_excess}}.
 do run()
 

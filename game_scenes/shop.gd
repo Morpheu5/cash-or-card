@@ -1,6 +1,6 @@
 extends BaseDialogueTestScene
 
-const Balloon = preload("res://game_scenes/balloon.tscn")
+const Balloon = preload("res://game_scenes/balloon/balloon.tscn")
 
 @onready var Globals = get_node("/root/Globals")
 @onready var main_dialog: DialogueResource = preload("res://assets/main.dialogue")
@@ -94,6 +94,8 @@ var cash_fee_loss = 0.0:
 		cash_fee_loss_changed.emit(value)
 		cash_fee_loss = value
 
+var potential_loss = 0.0
+
 var customers: Array[Customer] = []
 
 # Called when the node enters the scene tree for the first time.
@@ -121,6 +123,7 @@ func run():
 func initialize_day():
 	stolen_cash = 0.0
 	insurance_refund = 0.0
+	potential_loss = 0.0
 	update_robbery_chance()
 	for i in randi_range(5, 15):
 		var c = Customer.new() \
@@ -131,8 +134,9 @@ func initialize_day():
 
 func start_dialogue(res: DialogueResource, chap: String):
 	var balloon: Node = Balloon.instantiate()
-	balloon.set_display_folded(true)
-	get_tree().current_scene.add_child(balloon)
+#	balloon.set_display_folded(true)
+	
+	add_child(balloon)
 	balloon.start(res, chap)
 	return balloon
 
@@ -153,6 +157,7 @@ func loop() -> void:
 		## END OF DAY
 		if randf() < robbery_chance:
 			stolen_cash = cash
+			potential_loss = max(0, stolen_cash - insurance_excess)
 			start_dialogue(main_dialog, "shop_robbery")
 			customers = []
 		elif cash > 0.0:
@@ -184,6 +189,7 @@ func get_fee(method: String, amount: float):
 func handle_bank_run():
 	if randf() < robbery_chance:
 		stolen_cash = cash
+		potential_loss = max(0, stolen_cash - insurance_excess)
 		start_dialogue(main_dialog, "street_robbery")
 	else:
 		bank = snapped(bank + cash * (1 - bank_cash_fee), 0.01)
