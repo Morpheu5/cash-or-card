@@ -1,9 +1,15 @@
 extends BaseDialogueTestScene
 
-const Balloon = preload("res://game_scenes/balloon/balloon.tscn")
+#const Balloon = preload("res://game_scenes/balloon/balloon.tscn")
+const Balloon = preload("res://addons/dialogue_manager/example_balloon/example_balloon.tscn")
 
 @onready var Globals = get_node("/root/Globals")
 @onready var main_dialog: DialogueResource = preload("res://assets/main.dialogue")
+
+@onready var customerNameLabel = $HUD/ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer/CustomerNameLabel
+@onready var customerPicture = $HUD/ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/CustomerPicture
+@onready var customerDebugger = $HUD/ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer/CustomerDebugger
+@onready var amountLabel = $HUD/ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer/AmountLabel
 
 signal customer_debug
 
@@ -114,7 +120,8 @@ func _ready() -> void:
 	run()
 
 func do_customer_debug():
-	$HUD/ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer/CustomerDebugger.text = customer.to_string()
+	customerDebugger.text = customer.to_string()
+	print(customer.to_string())
 	
 func run():
 	initialize_day()
@@ -128,13 +135,13 @@ func initialize_day():
 	for i in randi_range(5, 15):
 		var c = Customer.new() \
 			.set_name(Globals.customer_names[randi() % Globals.customer_names.size()])
-		if c.must_use_cash:
-			c.set_name(c.name + " (W)")
+#		if c.must_use_cash:
+#			c.set_name(c.name + " (W)")
 		customers.append(c)
 
 func start_dialogue(res: DialogueResource, chap: String):
 	var balloon: Node = Balloon.instantiate()
-#	balloon.set_display_folded(true)
+	balloon.set_display_folded(true)
 	
 	add_child(balloon)
 	balloon.start(res, chap)
@@ -145,13 +152,18 @@ func loop() -> void:
 	if not customers.is_empty():
 		## NEW CUSTOMER
 		customer = customers.pop_front()
-		$HUD/ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer/CustomerNameLabel.text = customer.name
+		customerNameLabel.text = customer.name
+		
+		customerPicture.texture = load("res://assets/faces/%s.png" % customer.name)
+		var picMat = customerPicture.material
+		
+		
 		customer_has_explained_conspiracy = false
 		select_payment_method(customer)
 		amount = snapped(randf_range(0.05, 100.0), 0.01)
-		$HUD/ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer/AmountLabel.text = "Totale: %.2f" % amount
+		amountLabel.text = "Totale: %.2f" % amount
 		electronic_offered = false
-
+		print(customer)
 		start_dialogue(main_dialog, "main")
 	else:
 		## END OF DAY
@@ -215,3 +227,4 @@ func select_payment_method(c: Customer):
 		c.set_payment_method("cash")
 	else:
 		c.set_payment_method("card")
+

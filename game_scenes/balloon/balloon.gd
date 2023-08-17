@@ -10,7 +10,7 @@ const DIALOGUE_PITCHES = {
 @export var response_template: Node
 @export var file_suffix: String = ""
 
-@onready var talk_sound: AudioStreamPlayer = $TalkSound
+#@onready var talk_sound: AudioStreamPlayer = $TalkSound
 @onready var balloon: ColorRect = $Balloon
 @onready var margin: MarginContainer = $Balloon/Margin
 @onready var character_portrait: Sprite2D = $Balloon/Margin/HBox/Portrait/Sprite2D
@@ -46,7 +46,7 @@ var dialogue_line: DialogueLine:
 		
 		character_label.visible = not dialogue_line.character.is_empty()
 		character_label.text = tr(dialogue_line.character, "dialogue")
-		character_portrait.texture = load("res://game_scenes/balloon/portraits/nathan.png")
+		character_portrait.texture = load("res://assets/faces/01.png")
 		
 		dialogue_label.modulate.a = 0
 		dialogue_label.custom_minimum_size.x = dialogue_label.get_parent().size.x - 1
@@ -217,4 +217,4 @@ func _on_dialogue_label_spoke(letter: String, letter_index: int, speed: float) -
 		if letter_index % actual_speed == 0:
 #			talk_sound.play()
 			var pitch = DIALOGUE_PITCHES.get(dialogue_line.character, 1)
-			talk_sound.pitch_scale = randf_range(pitch - 0.1, pitch + 0.1)
+#			talk_sound.pitch_scale = randf_range(pitch - 0.1, pitch + 0.1)

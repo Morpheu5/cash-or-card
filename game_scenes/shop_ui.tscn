@@ -1,11 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpwmax3kf4sya"]
+[gd_scene load_steps=8 format=3 uid="uid://cpwmax3kf4sya"]
 
 [ext_resource type="Script" path="res://game_scenes/shop_ui.gd" id="1_h3vta"]
 [ext_resource type="Theme" uid="uid://6nk5w4vjdw2u" path="res://assets/theme.tres" id="2_7qdgd"]
-[ext_resource type="Texture2D" uid="uid://6qfe580k3p6v" path="res://assets/faces/05.png" id="3_tma4l"]
+[ext_resource type="Shader" path="res://assets/propic.gdshader" id="3_5xp64"]
+[ext_resource type="Texture2D" uid="uid://46dgf3nlp4ph" path="res://assets/faces/Alessandro.png" id="3_yg438"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2ogw"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cgvg6"]
+shader = ExtResource("3_5xp64")
+shader_parameter/numberOfColors = 7
+shader_parameter/C1 = Color(0, 0, 0, 1)
+shader_parameter/C2 = Color(0.6, 0.239216, 0, 1)
+shader_parameter/C3 = Color(0.478431, 0.301961, 0.172549, 1)
+shader_parameter/C4 = Color(0, 0, 1, 1)
+shader_parameter/C5 = Color(0.984314, 0.843137, 0.792157, 1)
+shader_parameter/C6 = Color(0, 0.521569, 0.854902, 1)
+shader_parameter/C7 = Color(1, 1, 0, 1)
+shader_parameter/C8 = Color(1, 1, 1, 1)
+shader_parameter/C9 = Color(0.529412, 0.529412, 0.529412, 1)
+shader_parameter/C10 = Color(0.631373, 0.631373, 0.631373, 1)
+shader_parameter/C11 = Color(0.721569, 0.721569, 0.721569, 1)
+shader_parameter/C12 = Color(0.941176, 0.941176, 0.941176, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qo35"]
 
@@ -52,9 +69,13 @@ theme_override_constants/margin_bottom = 20
 [node name="HBoxContainer" type="HBoxContainer" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer"]
+[node name="CustomerPicture" type="TextureRect" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+texture_filter = 1
+material = SubResource("ShaderMaterial_cgvg6")
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
-texture = ExtResource("3_tma4l")
+texture = ExtResource("3_yg438")
 
 [node name="VSeparator" type="VSeparator" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2

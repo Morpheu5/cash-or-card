@@ -16,16 +16,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Owner" type="Sprite2D" parent="Background/PanelContainer"]
+[node name="Background" type="Sprite2D" parent="Background/PanelContainer"]
 position = Vector2(0, -40)
 scale = Vector2(0.714286, 0.714286)
 texture = ExtResource("3_toe0j")
 centered = false
 
 [node name="HUD" parent="." instance=ExtResource("2_epm6x")]
-
-[node name="ShopUI" parent="HUD" index="0"]
-theme_override_constants/margin_right = 20
 
 [connection signal="bank_changed" from="." to="HUD" method="_on_shop_bank_changed"]
 [connection signal="cash_changed" from="." to="HUD" method="_on_shop_cash_changed"]
@@ -35,5 +32,3 @@ theme_override_constants/margin_right = 20
 [connection signal="insurance_excess_changed" from="." to="HUD" method="_on_shop_insurance_excess_changed"]
 [connection signal="insurance_premium_changed" from="." to="HUD" method="_on_shop_insurance_premium_changed"]
 [connection signal="robbery_chance_changed" from="." to="HUD" method="_on_shop_robbery_chance_changed"]
-
-[editable path="HUD"]

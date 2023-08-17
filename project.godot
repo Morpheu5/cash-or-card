@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="ShopSim"
+config/name="Carta o Contanti?"
 run/main_scene="res://game_scenes/shop.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 boot_splash/bg_color=Color(0.141176, 0.141176, 0.141176, 1)

@@ -12,6 +12,7 @@ endif
 	if customer.payment_method == "cash"
 		do handle_payment("cash")
 		do loop()
+		=> END
 	else
 		=> handle_card_payment
 	endif
@@ -23,6 +24,7 @@ endif
 
 
 ~ propose_card_payment
+do emit("customer_debug")
 if customer.must_use_cash and customer.denial_tolerance > 0
 	set customer_has_explained_conspiracy = true
 	% {{customer.name}}: Assolutamente no, il denaro elettronico è un modo per renderci schiavi dei sistemi finanziari globali!
@@ -41,6 +43,7 @@ if customer.must_use_cash and customer.denial_tolerance > 0
 	- [[Ha ragione|Giusto|Ah, sì]], meglio usare i contanti
 		do handle_payment("cash")
 		do loop()
+		=> END
 	- [[Non è proprio verissimo…|Le cose non stanno proprio così, in realtà…|A me non risulta…]] comunque [[continuo a preferire|a me fa più comodo]] la carta.
 		do customer.decrement_cash_preference()
 		do customer.decrement_denial_tolerance()
@@ -59,6 +62,7 @@ elif customer.must_use_cash and customer.denial_tolerance == 0
 	% {{customer.name}}: Mi piace scambiare soldi reali, di sicuro ci sarà un altro negoziante a cui piace la stessa cosa.
 	do handle_income_loss()
 	do loop()
+	=> END
 elif customer.prefers_cash > 0 and customer.denial_tolerance > 0
 	% {{customer.name}}: Ma non ci sono commissioni altissime?
 	% {{customer.name}}: Eh, ma così risparmiamo sulle commissioni!
@@ -70,6 +74,7 @@ elif customer.prefers_cash > 0 and customer.denial_tolerance > 0
 	- [[Ha ragione|Giusto|Ah, sì]], meglio usare i contanti
 		do handle_payment("cash")
 		do loop()
+		=> END
 	- No, [[non è proprio così]], e poi [[pagare con|usare]] la carta [[conviene|ha i suoi vantaggi|]]
 		do customer.decrement_cash_preference()
 		do customer.decrement_denial_tolerance()
@@ -78,13 +83,14 @@ elif customer.prefers_cash == 0 and customer.denial_tolerance > 0
 	% {{customer.name}}: Va bene, per questa volta pago con la carta…
 	% {{customer.name}}: Ok, allora pago con la carta…
 	=> handle_card_payment
-	do loop()
 elif customer.denial_tolerance == 0
 	{{customer.name}}: Continuo a preferire i contanti, quindi le lascio la sua merce e vado altrove.
 	do handle_income_loss()
 	do loop()
+	=> END
 else
 	Buh
+	=> END
 endif
 => END
 
@@ -112,12 +118,14 @@ elif customer.denial_tolerance == 0 and customer.initial_denial_tolerance >= 3
 	% {{customer.name}}: Va bene, farò [[un|due|tre]] km in più per andare dal suo concorrente, allora, rieccole la sua roba.
 	do handle_income_loss()
 	do loop()
+	=> END
 elif customer.denial_tolerance == 0 and customer.initial_denial_tolerance < 3
 	% {{customer.name}}: Per questa volta pago in contanti… ma spargerò la voce.
 	% {{customer.name}}: OK, stavolta passi ma mi ricorderò di andare in cerca da qualche altra parte, la prossima volta.
 	% {{customer.name}}: Va bene, però il suo collega di là della strada mi hanno detto che non si fa problemi con le carte…
 	do handle_payment("cash")
 	do loop()
+	=> END
 endif
 => END
 
@@ -136,12 +144,15 @@ Scegli un metodo di pagamento elettronico:
 - POS (commissione\: {{100 * get_fee("card", amount)}}%)
 	do handle_payment("card")
 	do loop()
+	=> END
 - PayUp (commissione\: {{100 * get_fee("payup", amount)}}%)
 	do handle_payment("payup")
 	do loop()
+	=> END
 - OddlyPay (commissione\: {{100 * get_fee("oddlypay", amount)}}%)
 	do handle_payment("oddlypay")
 	do loop()
+	=> END
 => END
 
 
@@ -149,8 +160,10 @@ Scegli un metodo di pagamento elettronico:
 A fine giornata hai {{bank}} soldi in banca e {{cash}} soldi in contanti.
 - Porta i contanti in banca.
 	do handle_bank_run()
+	=> END
 - Torna a casa.
 	do run()
+	=> END
 => END
 
 
@@ -175,7 +188,7 @@ Sei stato derubato mentre andavi in banca! La polizia è arrivata troppo tardi p
 	=> insurance_claim_end
 - Torna a casa (perdi {{stolen_cash}} soldi)
 	do run()
-=> END
+	=> END
 
 ~ shop_robbery
 % Ladro: In alto le mani!
@@ -190,13 +203,12 @@ Sei stato rapinato in negozio! La polizia è arrivata troppo tardi per fermare i
 	=> insurance_claim_end
 - Chiudi e torna a casa (perdi {{stolen_cash}} soldi)
 	do run()
-=> END
+	=> END
 
 
 ~ insurance_claim_end
 L'assicurazione ti restituisce {{insurance_refund}}. Il nuovo premio è {{insurance_premium}} con una franchigia di {{insurance_excess}}.
 do run()
-
 => END
 
 

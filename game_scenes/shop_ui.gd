@@ -9,7 +9,7 @@ extends CanvasLayer
 @onready var cashFeeLossLabel = %CashFeeLossLabel
 @onready var robberyChanceLabel = %RobberyChanceLabel
 
-@onready var customerNameLanel = %CustomerNameLabel
+@onready var customerNameLabel = %CustomerNameLabel
 @onready var amountLabel = %AmountLabel
 
 # Called when the node enters the scene tree for the first time.
