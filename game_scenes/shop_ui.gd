@@ -45,6 +45,5 @@ func _on_shop_cash_fee_loss_changed(new_value):
 	cashFeeLossLabel.text = "Costi contante: %.2f" % new_value
 
 func _on_shop_robbery_chance_changed(new_value):
-	print(new_value)
 	robberyChanceLabel.text = "Rischio rapina: %.1f %%" % (new_value * 100)
 

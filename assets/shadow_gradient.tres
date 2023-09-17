@@ -1,0 +1,7 @@
+[gd_resource type="GradientTexture2D" load_steps=2 format=3 uid="uid://d3ski654dbe48"]
+
+[sub_resource type="Gradient" id="Gradient_2do7q"]
+
+[resource]
+gradient = SubResource("Gradient_2do7q")
+fill = 1

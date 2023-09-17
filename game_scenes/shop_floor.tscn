@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4og1uqcbl2x3"]
+
+[ext_resource type="Texture2D" uid="uid://sql8c3oqfjqh" path="res://assets/pics/shop_floor.png" id="1_3kbfj"]
+[ext_resource type="PackedScene" uid="uid://cn3o8mc8v836c" path="res://game_scenes/walker.tscn" id="2_u53ub"]
+
+[node name="ShopFloor" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_3kbfj")
+centered = false
+
+[node name="Walker" parent="." instance=ExtResource("2_u53ub")]
+position = Vector2(689, 262)
+scale = Vector2(-1, 1)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+clip_children = 1
+offset_left = 64.0
+offset_top = 224.0
+offset_right = 610.0
+offset_bottom = 360.0
+
+[node name="QueueStartEmpty" type="Node2D" parent="ColorRect"]
+position = Vector2(519, 112)

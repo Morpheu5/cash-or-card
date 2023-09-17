@@ -1,9 +1,11 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://6nk5w4vjdw2u"]
 
-[ext_resource type="FontVariation" uid="uid://cpi2fu5yb61x8" path="res://assets/pixelfont.tres" id="1_k7785"]
+[ext_resource type="FontVariation" uid="uid://cpi2fu5yb61x8" path="res://assets/fonts/pixelfont.tres" id="1_njhn6"]
 
 [resource]
+Button/font_sizes/font_size = 64
+Button/fonts/font = ExtResource("1_njhn6")
 Label/font_sizes/font_size = 32
-Label/fonts/font = ExtResource("1_k7785")
+Label/fonts/font = ExtResource("1_njhn6")
 RichTextLabel/font_sizes/normal_font_size = 32
-RichTextLabel/fonts/normal_font = ExtResource("1_k7785")
+RichTextLabel/fonts/normal_font = ExtResource("1_njhn6")

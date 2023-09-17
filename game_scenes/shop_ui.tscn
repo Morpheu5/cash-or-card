@@ -1,33 +1,23 @@
 [gd_scene load_steps=8 format=3 uid="uid://cpwmax3kf4sya"]
 
 [ext_resource type="Script" path="res://game_scenes/shop_ui.gd" id="1_h3vta"]
+[ext_resource type="PackedScene" uid="uid://ql20jf1lyuar" path="res://game_scenes/day_card.tscn" id="2_4oenc"]
 [ext_resource type="Theme" uid="uid://6nk5w4vjdw2u" path="res://assets/theme.tres" id="2_7qdgd"]
-[ext_resource type="Shader" path="res://assets/propic.gdshader" id="3_5xp64"]
-[ext_resource type="Texture2D" uid="uid://46dgf3nlp4ph" path="res://assets/faces/Alessandro.png" id="3_yg438"]
+[ext_resource type="Texture2D" uid="uid://gki0snasbdwn" path="res://assets/faces/Alessandro.png" id="3_yg438"]
+[ext_resource type="PackedScene" uid="uid://c4og1uqcbl2x3" path="res://game_scenes/shop_floor.tscn" id="5_srm46"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e2ogw"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cgvg6"]
-shader = ExtResource("3_5xp64")
-shader_parameter/numberOfColors = 7
-shader_parameter/C1 = Color(0, 0, 0, 1)
-shader_parameter/C2 = Color(0.6, 0.239216, 0, 1)
-shader_parameter/C3 = Color(0.478431, 0.301961, 0.172549, 1)
-shader_parameter/C4 = Color(0, 0, 1, 1)
-shader_parameter/C5 = Color(0.984314, 0.843137, 0.792157, 1)
-shader_parameter/C6 = Color(0, 0.521569, 0.854902, 1)
-shader_parameter/C7 = Color(1, 1, 0, 1)
-shader_parameter/C8 = Color(1, 1, 1, 1)
-shader_parameter/C9 = Color(0.529412, 0.529412, 0.529412, 1)
-shader_parameter/C10 = Color(0.631373, 0.631373, 0.631373, 1)
-shader_parameter/C11 = Color(0.721569, 0.721569, 0.721569, 1)
-shader_parameter/C12 = Color(0.941176, 0.941176, 0.941176, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qo35"]
 
-[node name="CanvasLayer" type="CanvasLayer"]
+[node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_h3vta")
+
+[node name="ShopFloor" parent="." instance=ExtResource("5_srm46")]
+unique_name_in_owner = true
+z_index = -1
+texture_filter = 1
 
 [node name="ShopUI" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -38,27 +28,34 @@ grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ShopUI"]
 layout_mode = 2
+theme_override_constants/separation = 20
 
-[node name="PanelContainer" type="PanelContainer" parent="ShopUI/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ShopUI/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="ShopUI/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ShopUI/HBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="InfoPanel" type="PanelContainer" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="InfoPanel" type="PanelContainer" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 theme = ExtResource("2_7qdgd")
 theme_override_styles/panel = SubResource("StyleBoxFlat_e2ogw")
 
-[node name="MarginContainer" type="MarginContainer" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel"]
+[node name="MarginContainer" type="MarginContainer" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel"]
 layout_mode = 2
 theme = ExtResource("2_7qdgd")
 theme_override_constants/margin_left = 20
@@ -66,36 +63,37 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer"]
 layout_mode = 2
 
-[node name="CustomerPicture" type="TextureRect" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer"]
+[node name="CustomerPicture" type="TextureRect" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 texture_filter = 1
-material = SubResource("ShaderMaterial_cgvg6")
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 texture = ExtResource("3_yg438")
 
-[node name="VSeparator" type="VSeparator" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 theme_override_styles/separator = SubResource("StyleBoxFlat_0qo35")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="CustomerNameLabel" type="Label" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="CustomerNameLabel" type="Label" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Name"
 
-[node name="AmountLabel" type="Label" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="AmountLabel" type="Label" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 text = "Amount"
 
-[node name="CustomerDebugger" type="Label" parent="ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="CustomerDebugger" type="Label" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="StatsPanel" type="PanelContainer" parent="ShopUI/HBoxContainer"]
@@ -128,24 +126,45 @@ text = "Cash: 0.00"
 [node name="ElectronicFeeLossLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Electronic fees: 0.00"
 
 [node name="CashFeeLossLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Cash fees: 0.00"
 
 [node name="InsurancePremiumLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Insurance Premium"
+text = "Insurance: 0.00"
 
 [node name="InsuranceExcessLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Excess: 0.00"
 
 [node name="IncomeLossLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Lost income: 0.00"
 
 [node name="RobberyChanceLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+text = "Risk: 0.0%"
+
+[node name="Blackout" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="DayCard" parent="." instance=ExtResource("2_4oenc")]
+visible = false
+z_index = 0
+
+[connection signal="open_shop_button_pressed" from="DayCard" to="." method="_on_day_card_open_shop_button_pressed"]

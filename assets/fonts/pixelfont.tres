@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://cpi2fu5yb61x8"]
+
+[ext_resource type="FontFile" uid="uid://66ww13xm8qa3" path="res://assets/fonts/alterebro-pixel-font.ttf" id="1_go7un"]
+
+[resource]
+base_font = ExtResource("1_go7un")

@@ -1,6 +1,6 @@
-~ start
+~ main
 
-{{customer.name}} si avvicina alla cassa. [[I suoi acquisti ammontano a|Gli articoli che ha con sé costano un totale di]] {{amount}} soldi.
+{{customer.name}} si avvicina alla cassa. [[I suoi acquisti ammontano a|Gli articoli che ha con sé costano un totale di]] {{amount}} soldi. [next=auto]
 if (customer.payment_method == "cash")
 	% {{customer.name}}: Vorrei pagare in contanti
 	% {{customer.name}}: Posso pagare in contanti?
@@ -16,15 +16,15 @@ endif
 	else
 		=> handle_card_payment
 	endif
-- Non preferisce pagare in contanti? [if customer.payment_method != "cash"]
+- [[Preferisco in contanti|Ho il POS rotto|No, mi costa troppo di commissioni|Il contante non costa niente]] [if customer.payment_method == "card"]
 	=> propose_cash_payment
-- Non preferisce pagare con la carta? [if customer.payment_method != "card"]
+- [[O anche con la carta|Ho anche il POS, se vuole|Preferirei con la carta, se può|Con la carta mi farebbe un favore]] [if customer.payment_method == "cash"]
 	=> propose_card_payment
 => END
 
 
 ~ propose_card_payment
-do emit("customer_debug")
+# do emit("customer_debug")
 if customer.must_use_cash and customer.denial_tolerance > 0
 	set customer_has_explained_conspiracy = true
 	% {{customer.name}}: Assolutamente no, il denaro elettronico è un modo per renderci schiavi dei sistemi finanziari globali!
@@ -75,7 +75,7 @@ elif customer.prefers_cash > 0 and customer.denial_tolerance > 0
 		do handle_payment("cash")
 		do loop()
 		=> END
-	- No, [[non è proprio così]], e poi [[pagare con|usare]] la carta [[conviene|ha i suoi vantaggi|]]
+	- No, e poi [[pagare con|usare]] la carta [[conviene|ha i suoi vantaggi]]
 		do customer.decrement_cash_preference()
 		do customer.decrement_denial_tolerance()
 		=> propose_card_payment
@@ -99,7 +99,7 @@ endif
 if customer.denial_tolerance > 0
 	% {{customer.name}}: Preferisco la carta, così evito di portarmi in giro un sacco di contanti, sa com'è… la sicurezza!
 	% {{customer.name}}: Eh, ma con la carta tengo meglio traccia delle spese.
-	% {{customer.name}}: Ma si figuri, con la carta non dev cercare un bancomat ogni volta che devo pagare.
+	% {{customer.name}}: Ma si figuri, con la carta non devo cercare uno sportello ogni volta che devo pagare.
 	% {{customer.name}}: No, la carta è meglio: se la perdo o me la rubano, non ho perso niente, mica come coi contanti…
 	% {{customer.name}}: Con la carta non dobbiamo stare lì a contare i centesimini e controllare il resto…
 	% {{customer.name}}: Con la carta so subito quanto ho speso e faccio prima a fare i conti a fine giornata!

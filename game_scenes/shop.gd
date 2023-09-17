@@ -1,15 +1,20 @@
 extends BaseDialogueTestScene
 
 #const Balloon = preload("res://game_scenes/balloon/balloon.tscn")
-const Balloon = preload("res://addons/dialogue_manager/example_balloon/example_balloon.tscn")
+const Balloon = preload("res://game_scenes/balloon/balloon.tscn")
+const Walker = preload("res://game_scenes/walker.tscn")
 
 @onready var Globals = get_node("/root/Globals")
 @onready var main_dialog: DialogueResource = preload("res://assets/main.dialogue")
 
-@onready var customerNameLabel = $HUD/ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer/CustomerNameLabel
-@onready var customerPicture = $HUD/ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/CustomerPicture
-@onready var customerDebugger = $HUD/ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer/CustomerDebugger
-@onready var amountLabel = $HUD/ShopUI/HBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer/AmountLabel
+@onready var customerNameLabel = $HUD/%CustomerNameLabel
+@onready var customerPicture = $HUD/%CustomerPicture
+@onready var amountLabel = $HUD/%AmountLabel
+
+@onready var shopFloor = $HUD/%ShopFloor
+
+var customerLine: Array[Node2D] = []
+var firstCustomer = true
 
 signal customer_debug
 
@@ -21,37 +26,6 @@ signal income_lost_changed(new_value)
 signal robbery_chance_changed(new_value)
 signal electronic_fee_loss_changed(new_value)
 signal cash_fee_loss_changed(new_value)
-
-var payment_methods = {
-	"cash": { "method_id": "cash",
-	  "text": "in contanti",
-	  "electronic": false,
-	  "fee_threshold": 0,
-	  "low_fee": 0.00,
-	  "high_fee": 0.00,
-	},
-	"card": { "method_id": "card",
-	  "text": "con la carta",
-	  "electronic": true,
-	  "fee_threshold": randi_range(5, 20),
-	  "low_fee": snapped(randf_range(0.0, 0.015), 0.001),
-	  "high_fee": snapped(randf_range(0.015, 0.02), 0.001),
-	},
-	"payup": { "method_id": "payup",
-	  "text": "con PayUp",
-	  "electronic": true,
-	  "fee_threshold": randi_range(10, 50),
-	  "low_fee": snapped(randf_range(0.0, 0.015), 0.001),
-	  "high_fee": snapped(randf_range(0.015, 0.02), 0.001),
-	},
-	"oddlypay": { "method_id": "oddlypay",
-	  "text": "con OddlyPay",
-	  "electronic": true,
-	  "fee_threshold": randi_range(10, 50),
-	  "low_fee": snapped(randf_range(0.0, 0.015), 0.001),
-	  "high_fee": snapped(randf_range(0.015, 0.02), 0.001),
-	},
-}
 
 var payment_method = null
 var amount = 0.0
@@ -104,12 +78,16 @@ var potential_loss = 0.0
 
 var customers: Array[Customer] = []
 
+var lights = false
+
+var day = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	bank = 0.0
 	cash = 0.0
-	insurance_premium = randi_range(300, 500)
-	insurance_excess = randi_range(100, 200)
+	insurance_premium = randi_range(100, 200)
+	insurance_excess = randi_range(50, 100)
 	income_lost = 0.0
 	electronic_fee_loss = 0.0
 	cash_fee_loss = 0.0
@@ -117,65 +95,178 @@ func _ready() -> void:
 	
 	customer_debug.connect(do_customer_debug)
 	
+	$HUD/Blackout.color = Color(0, 0, 0, 1)
+	$HUD/Blackout.visible = true
+	$HUD/%InfoPanel.modulate = Color(1, 1, 1, 0)
+	hide_day_card()
+	
+	var day_card = get_node("HUD/DayCard")
+	day_card.open_shop_button_pressed.connect(_on_open_shop_button_pressed)
+	
 	run()
 
-func do_customer_debug():
-	customerDebugger.text = customer.to_string()
-	print(customer.to_string())
-	
-func run():
-	initialize_day()
+func _on_open_shop_button_pressed():
+	# Now get this show started
+	await hide_day_card()
+	await lights_on()
 	loop()
 
+func do_customer_debug():
+	print(customer.to_string())
+
+func lights_out():
+	await create_tween().tween_property($HUD/Blackout, 'color', Color(0, 0, 0, 1), 1).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO).finished
+	await create_tween().tween_property($HUD/%InfoPanel, 'modulate', Color(1, 1, 1, 0), 1).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO).finished
+	lights = false
+
+func lights_on():
+	await create_tween().tween_property($HUD/Blackout, 'color', Color(0, 0, 0, 0), 1).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO).finished
+	lights = true
+
+func hide_day_card():
+	await create_tween().tween_property($HUD/DayCard, 'modulate', Color(1, 1, 1, 0), 0.25).finished
+	$HUD/DayCard.visible = false
+
+func show_day_card():
+	await create_tween().tween_property($HUD/DayCard, 'modulate', Color(1, 1, 1, 1), 0.25).finished
+	$HUD/DayCard.visible = true
+	
+func run():
+	await initialize_day()
+#	loop()
+
 func initialize_day():
+	# Emergency curtain
+	if lights:
+		await lights_out()
+	
+	day += 1
+	
+	# Remove any leftover customers wandering out of the shop
+	for c in $HUD/%ShopFloor/ColorRect/QueueStartEmpty.get_children():
+		$HUD/%ShopFloor/ColorRect/QueueStartEmpty.remove_child(c)
+
+	# Initialize all the values to sensible start-of-day defaults
 	stolen_cash = 0.0
 	insurance_refund = 0.0
 	potential_loss = 0.0
+	firstCustomer = true
 	update_robbery_chance()
-	for i in randi_range(5, 15):
-		var c = Customer.new() \
-			.set_name(Globals.customer_names[randi() % Globals.customer_names.size()])
-#		if c.must_use_cash:
-#			c.set_name(c.name + " (W)")
+	
+	# Roll the dice
+	randomize()
+
+	# Shuffle the list of names so we get fresh customers in a new order every day
+	var shuffled_names = Globals.customer_names
+	shuffled_names.shuffle()
+	# Then generate the line
+	for i in randi_range(2,2): #TODO Change the range for production
+		var c = Customer.new().set_name(shuffled_names.pop_front())
+		# if c.must_use_cash:
+		# 	c.set_name(c.name + " (W)")
 		customers.append(c)
+	# And add the corresponding sprites in the right place
+	for i in customers.size():
+		var customer_node = Walker.instantiate()
+		var customer_sprite = customer_node.get_node('Sprite')
+		var empty = shopFloor.get_node('ColorRect/QueueStartEmpty')
+		var sprite_size = customer_sprite.texture.get_size()
+		var sprite_scale = customer_sprite.get_scale()
+		customer_node.position.x = -sprite_size.x/2 * (i+0.5)
+		customer_node.position.y = -sprite_size.y * sprite_scale.y
+		empty.add_child(customer_node)
+		customerLine.append(customer_node)
+	
+	# Show new day info and current stats
+	$HUD/DayCard/%TitleLabel.text = "Giorno %d" % day
+	$HUD/DayCard/%BankLabel.text = "Banca: %.2f" % bank
+	$HUD/DayCard/%CashLabel.text = "Contante: %.2f" % cash
+	$HUD/DayCard/%ElectronicFeeLossLabel.text = "Costi elettronici: %.2f" % electronic_fee_loss
+	$HUD/DayCard/%CashFeeLossLabel.text = "Costi contanti: %.2f" % cash_fee_loss
+	$HUD/DayCard/%InsurancePremiumLabel.text = "Assicurazione: %.2f" % insurance_premium
+	$HUD/DayCard/%InsuranceExcessLabel.text = "Franchigia: %.2f" % insurance_excess
+	$HUD/DayCard/%IncomeLossLabel.text = "Mancati guadagni: %.2f" % income_lost
+	$HUD/DayCard/%RobberyChanceLabel.text = "Rischio rapina: %.2f" % robbery_chance
+	await show_day_card()
 
 func start_dialogue(res: DialogueResource, chap: String):
 	var balloon: Node = Balloon.instantiate()
 	balloon.set_display_folded(true)
-	
 	add_child(balloon)
 	balloon.start(res, chap)
 	return balloon
 
+
+func show_info_panel():
+	await create_tween().tween_property($HUD/%InfoPanel, 'modulate', Color(1, 1, 1, 1), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT).finished
+
+func hide_info_panel():
+	await create_tween().tween_property($HUD/%InfoPanel, 'modulate', Color(1, 1, 1, 0), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT).finished
+
 func loop() -> void:
 	update_robbery_chance()
+	
+	if not firstCustomer:
+		customer_walks_away()
+		line_moves_on()
+	firstCustomer = false
+	
 	if not customers.is_empty():
-		## NEW CUSTOMER
-		customer = customers.pop_front()
-		customerNameLabel.text = customer.name
-		
-		customerPicture.texture = load("res://assets/faces/%s.png" % customer.name)
-		var picMat = customerPicture.material
-		
-		
-		customer_has_explained_conspiracy = false
-		select_payment_method(customer)
-		amount = snapped(randf_range(0.05, 100.0), 0.01)
-		amountLabel.text = "Totale: %.2f" % amount
-		electronic_offered = false
-		print(customer)
-		start_dialogue(main_dialog, "main")
+		await hide_info_panel()
+		await new_customer()
 	else:
-		## END OF DAY
-		if randf() < robbery_chance:
-			stolen_cash = cash
-			potential_loss = max(0, stolen_cash - insurance_excess)
-			start_dialogue(main_dialog, "shop_robbery")
-			customers = []
-		elif cash > 0.0:
-			start_dialogue(main_dialog, "ask_bank_run")
-		else:
-			run()
+		await end_of_day()
+
+func new_customer():
+	customer = customers.pop_front()
+	customerNameLabel.text = customer.name
+	customerPicture.texture = load("res://assets/faces/%s.png" % customer.name)
+	
+	customer_has_explained_conspiracy = false
+	select_payment_method(customer)
+	amount = snapped(randf_range(0.05, 100.0), 0.01)
+	amountLabel.text = "Totale: %.2f" % amount
+	electronic_offered = false
+	await show_info_panel()
+	
+	start_dialogue(main_dialog, "main")
+
+func customer_walks_away():
+	var customer_node = customerLine.pop_front()
+	var customer_sprite: Sprite2D = customer_node.get_node('Sprite')
+	var customer_tween = create_tween()
+#	customer_tween.tween_property(customer_sprite, 'modulate:a', 0.333, 0.2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+	customer_tween.tween_property(customer_node, 'global_position', Vector2(-100, customer_node.global_position.y), 9)
+	customer_node.scale.x = -1
+	customer_node.global_position.x += customer_sprite.texture.get_width()/3
+	customer_node.global_position.y -= 20
+	var customer_ap: AnimationPlayer = customer_node.get_node('AnimationPlayer')
+	customer_ap.set_speed_scale(1.0)
+	customer_ap.play('walking')
+	await create_tween().tween_property($HUD/%InfoPanel, 'modulate', Color(1, 1, 1, 0), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT).finished
+
+func line_moves_on():
+	for i in customerLine.size():
+		var c_tween = create_tween()
+		var c = customerLine[i]
+		var c_sprite = c.get_node('Sprite')
+		var ap = c.get_node('AnimationPlayer')
+		ap.set_speed_scale(0.2)
+		ap.play('walking')
+		c_tween.tween_property(c, 'global_position', c.global_position + Vector2(c_sprite.texture.get_size().x/2, 0), randf_range(0.5, 1.5)).set_delay(0.25*i)
+		c_tween.tween_callback(func(): c.get_node('AnimationPlayer').play('standing'))
+
+func end_of_day():
+	await create_tween().tween_property($HUD/%InfoPanel, 'modulate', Color(1, 1, 1, 0), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT).finished
+	if randf() < robbery_chance:
+		stolen_cash = cash
+		potential_loss = max(0, stolen_cash - insurance_excess)
+		start_dialogue(main_dialog, "shop_robbery")
+		customers = []
+	elif cash > 0.0:
+		start_dialogue(main_dialog, "ask_bank_run")
+	else:
+		run()
 
 func update_robbery_chance():
 	robbery_chance = 0.005 + cash / 10000
@@ -193,13 +284,12 @@ var _fee: float:
 		return get_fee("card", amount)
 
 func get_fee(method: String, amount: float):
-	var p = payment_methods[method]
+	var p = Globals.payment_methods[method]
 	var fee = p["low_fee"] if amount < p["fee_threshold"] else p["high_fee"]
 	return fee
 
-
 func handle_bank_run():
-	if randf() < robbery_chance:
+	if randf() < 1.0: # robbery_chance:
 		stolen_cash = cash
 		potential_loss = max(0, stolen_cash - insurance_excess)
 		start_dialogue(main_dialog, "street_robbery")
@@ -211,11 +301,9 @@ func handle_bank_run():
 
 func handle_insurance_claim(amount: float = 0.0):
 	insurance_refund = max(0, stolen_cash - insurance_excess)
-	
 	bank = snapped(bank + insurance_refund * (1 - bank_cash_fee), 0.01)
 	cash_fee_loss += snapped(insurance_refund * bank_cash_fee, 0.01)
 	cash = 0.0
-	
 	insurance_premium = ceili(insurance_premium * 1.05)
 	insurance_excess = ceili(insurance_excess * 1.05)
 

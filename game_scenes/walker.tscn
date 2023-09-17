@@ -1,0 +1,95 @@
+[gd_scene load_steps=7 format=3 uid="uid://cn3o8mc8v836c"]
+
+[ext_resource type="Texture2D" uid="uid://ckamxexb1qvfg" path="res://assets/walkers/mw01.png" id="1_hvjsj"]
+[ext_resource type="Texture2D" uid="uid://d3ski654dbe48" path="res://assets/shadow_gradient.tres" id="2_ky27m"]
+
+[sub_resource type="Animation" id="Animation_q2xf8"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 10, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_axtdh"]
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Rect2(10, 0, 10, 24), Rect2(20, 0, 10, 24), Rect2(30, 0, 10, 24), Rect2(40, 0, 10, 24), Rect2(50, 0, 10, 24), Rect2(60, 0, 10, 24), Rect2(70, 0, 10, 24), Rect2(80, 0, 10, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lla56"]
+_data = {
+"standing": SubResource("Animation_q2xf8"),
+"walking": SubResource("Animation_axtdh")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_15bwc"]
+blend_mode = 3
+
+[node name="Walker" type="Node2D"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_lla56")
+}
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(3, 3)
+texture = ExtResource("1_hvjsj")
+centered = false
+region_enabled = true
+region_rect = Rect2(10, 0, 10, 24)
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+modulate = Color(1, 1, 1, 0.0862745)
+
+[node name="TextureRect" type="TextureRect" parent="Node2D"]
+material = SubResource("CanvasItemMaterial_15bwc")
+offset_top = 60.0
+offset_right = 64.0
+offset_bottom = 124.0
+scale = Vector2(0.5, 0.25)
+texture = ExtResource("2_ky27m")

@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bq8cdsnxpscqs"]
+[gd_scene load_steps=3 format=3 uid="uid://bq8cdsnxpscqs"]
 
 [ext_resource type="Script" path="res://game_scenes/shop.gd" id="1_edlot"]
 [ext_resource type="PackedScene" uid="uid://cpwmax3kf4sya" path="res://game_scenes/shop_ui.tscn" id="2_epm6x"]
-[ext_resource type="Texture2D" uid="uid://c7o4yxgy6deob" path="res://assets/owner.png" id="3_toe0j"]
 
 [node name="Shop" type="Node2D"]
 script = ExtResource("1_edlot")
@@ -19,7 +18,6 @@ grow_vertical = 2
 [node name="Background" type="Sprite2D" parent="Background/PanelContainer"]
 position = Vector2(0, -40)
 scale = Vector2(0.714286, 0.714286)
-texture = ExtResource("3_toe0j")
 centered = false
 
 [node name="HUD" parent="." instance=ExtResource("2_epm6x")]

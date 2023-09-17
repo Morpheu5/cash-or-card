@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://dekctvehlocm3"]
+
+[ext_resource type="FontFile" uid="uid://dst4cj5pxul8a" path="res://assets/fonts/Minercraftory.ttf" id="1_fp33p"]
+
+[resource]
+base_font = ExtResource("1_fp33p")
