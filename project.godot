@@ -19,6 +19,10 @@ boot_splash/use_filter=false
 config/icon="res://icon.svg"
 boot_splash/minimum_display_time=500
 
+[audio]
+
+driver/mix_rate.web=44100
+
 [autoload]
 
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
@@ -34,7 +38,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/aseprite_importer/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/coi_serviceworker/plugin.cfg", "res://addons/dialogue_manager/plugin.cfg")
 
 [gui]
 
@@ -59,12 +63,13 @@ ui_select={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://main.dialogue", "res://assets/main.dialogue")
+locale/translations_pot_files=PackedStringArray("res://assets/main.dialogue")
 
 [rendering]
 
+renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
-shader_compiler/shader_cache/strip_debug=true
+limits/global_shader_variables/buffer_size=16384
 limits/opengl/max_lights_per_object=2

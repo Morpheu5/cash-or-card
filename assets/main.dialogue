@@ -1,6 +1,6 @@
 ~ main
 
-{{customer.name}} si avvicina alla cassa. [[I suoi acquisti ammontano a|Gli articoli che ha con sé costano un totale di]] {{amount}} soldi. [next=auto]
+{{customer.name}} si avvicina alla cassa. [[I suoi acquisti ammontano a|Gli articoli che ha con sé costano un totale di]] {{amount_str}} soldi. [next=auto]
 if (customer.payment_method == "cash")
 	% {{customer.name}}: Vorrei pagare in contanti
 	% {{customer.name}}: Posso pagare in contanti?

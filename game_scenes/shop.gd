@@ -1,6 +1,5 @@
 extends BaseDialogueTestScene
 
-#const Balloon = preload("res://game_scenes/balloon/balloon.tscn")
 const Balloon = preload("res://game_scenes/balloon/balloon.tscn")
 const Walker = preload("res://game_scenes/walker.tscn")
 
@@ -29,6 +28,7 @@ signal cash_fee_loss_changed(new_value)
 
 var payment_method = null
 var amount = 0.0
+var amount_str = "0,00"
 var customer: Customer = null
 var electronic_offered = false
 var customer_has_explained_conspiracy = false
@@ -124,16 +124,17 @@ func lights_on():
 	lights = true
 
 func hide_day_card():
-	await create_tween().tween_property($HUD/DayCard, 'modulate', Color(1, 1, 1, 0), 0.25).finished
-	$HUD/DayCard.visible = false
+	if $HUD/DayCard.visible:
+		await create_tween().tween_property($HUD/DayCard, 'modulate', Color(1, 1, 1, 0), 0.25).finished
+		$HUD/DayCard.visible = false
 
 func show_day_card():
-	await create_tween().tween_property($HUD/DayCard, 'modulate', Color(1, 1, 1, 1), 0.25).finished
-	$HUD/DayCard.visible = true
+	if !$HUD/DayCard.visible:
+		await create_tween().tween_property($HUD/DayCard, 'modulate', Color(1, 1, 1, 1), 0.25).finished
+		$HUD/DayCard.visible = true
 	
 func run():
 	await initialize_day()
-#	loop()
 
 func initialize_day():
 	# Emergency curtain
@@ -225,7 +226,8 @@ func new_customer():
 	customer_has_explained_conspiracy = false
 	select_payment_method(customer)
 	amount = snapped(randf_range(0.05, 100.0), 0.01)
-	amountLabel.text = "Totale: %.2f" % amount
+	amount_str = ("%.2f" % amount).replace(".", ",")
+	amountLabel.text = "Totale: %s" % amount_str
 	electronic_offered = false
 	await show_info_panel()
 	
@@ -235,7 +237,6 @@ func customer_walks_away():
 	var customer_node = customerLine.pop_front()
 	var customer_sprite: Sprite2D = customer_node.get_node('Sprite')
 	var customer_tween = create_tween()
-#	customer_tween.tween_property(customer_sprite, 'modulate:a', 0.333, 0.2).set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
 	customer_tween.tween_property(customer_node, 'global_position', Vector2(-100, customer_node.global_position.y), 9)
 	customer_node.scale.x = -1
 	customer_node.global_position.x += customer_sprite.texture.get_width()/3
