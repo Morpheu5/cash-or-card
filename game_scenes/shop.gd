@@ -109,6 +109,7 @@ func _on_open_shop_button_pressed():
 	# Now get this show started
 	await hide_day_card()
 	await lights_on()
+	radio_on()
 	loop()
 
 func do_customer_debug():
@@ -132,6 +133,18 @@ func show_day_card():
 	if !$HUD/DayCard.visible:
 		await create_tween().tween_property($HUD/DayCard, 'modulate', Color(1, 1, 1, 1), 0.25).finished
 		$HUD/DayCard.visible = true
+
+func radio_off(sudden: bool = false):
+	if sudden:
+		await create_tween().tween_property($AudioStreamPlayer, 'volume_db', -40, 0.1)
+	else:
+		await create_tween().tween_property($AudioStreamPlayer, 'volume_db', -40, 2).finished
+	$AudioStreamPlayer.playing = false
+
+func radio_on():
+	$AudioStreamPlayer.volume_db = -80
+	$AudioStreamPlayer.playing = true
+	create_tween().tween_property($AudioStreamPlayer, 'volume_db', -12, 0.1)
 	
 func run():
 	await initialize_day()
@@ -260,6 +273,8 @@ func line_moves_on():
 func end_of_day():
 	await create_tween().tween_property($HUD/%InfoPanel, 'modulate', Color(1, 1, 1, 0), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT).finished
 	if randf() < robbery_chance:
+		radio_off(true)
+		# TODO Add robbery stinger
 		stolen_cash = cash
 		potential_loss = max(0, stolen_cash - insurance_excess)
 		start_dialogue(main_dialog, "shop_robbery")
@@ -267,6 +282,7 @@ func end_of_day():
 	elif cash > 0.0:
 		start_dialogue(main_dialog, "ask_bank_run")
 	else:
+		await radio_off()
 		run()
 
 func update_robbery_chance():

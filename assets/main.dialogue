@@ -159,9 +159,11 @@ Scegli un metodo di pagamento elettronico:
 ~ ask_bank_run
 A fine giornata hai {{bank}} soldi in banca e {{cash}} soldi in contanti.
 - Porta i contanti in banca.
+	do radio_off()
 	do handle_bank_run()
 	=> END
 - Torna a casa.
+	do radio_off()
 	do run()
 	=> END
 => END

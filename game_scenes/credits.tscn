@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://rc70nep0tjwp"]
+
+[node name="Credits" type="Node2D"]
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="BackgroundColor" type="ColorRect" parent="Canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 4
+bbcode_enabled = true
+text = "[center]MUSIC
+[url=\"https://soundcloud.com/kenobit/bit-beat-beach?utm_source=cash_or_card&utm_medium=videogame\"][color=\"#80bfff\"]Bit Beat Beach[/color][/url] by Kenobit
+
+PORTRAITS
+[url=\"https://kenney.itch.io/avatar-mixer\"][color=\"#80bfff\"]Avatar Mixer[/color][/url] by Kenney
+
+MISC
+[url=\"https://github.com/nathanhoad/godot_dialogue_manager\"][color=\"#80bfff\"]Dialogue Manager[/color][/url] by Nathan Hoad
+
+EVERYTHING ELSE
+[url=\"https://andreafranceschini.org\"][color=\"#80bfff\"]Andrea Franceschini[/color][/url]
+
+This game was created as part of a project funded by the European Union
+HORIZON-MSCA-2021-PF-01, Project ID 101062788 (EduGames)
+
+For more information, visit
+[url=\"https://edugames.andreafranceschini.org\"][color=\"#80bfff\"]edugames.andreafranceschini.org[/color][/url]
+[/center]"
+meta_underlined = false

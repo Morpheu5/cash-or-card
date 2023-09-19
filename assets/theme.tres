@@ -1,10 +1,30 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://6nk5w4vjdw2u"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://6nk5w4vjdw2u"]
 
 [ext_resource type="FontVariation" uid="uid://cpi2fu5yb61x8" path="res://assets/fonts/pixelfont.tres" id="1_njhn6"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i3dcf"]
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.25098)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 0.25098)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xeu0y"]
+content_margin_bottom = 8.0
+bg_color = Color(0, 0, 0, 0.501961)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 0)
+
 [resource]
-Button/font_sizes/font_size = 64
+Button/font_sizes/font_size = 48
 Button/fonts/font = ExtResource("1_njhn6")
+Button/styles/hover = SubResource("StyleBoxFlat_i3dcf")
+Button/styles/normal = SubResource("StyleBoxFlat_xeu0y")
 Label/font_sizes/font_size = 32
 Label/fonts/font = ExtResource("1_njhn6")
 RichTextLabel/font_sizes/normal_font_size = 32

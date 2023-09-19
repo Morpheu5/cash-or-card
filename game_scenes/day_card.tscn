@@ -108,12 +108,7 @@ theme_override_constants/separation = 20
 
 [node name="OpenShopButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 48
-theme_override_styles/normal = SubResource("StyleBoxEmpty_551if")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_551if")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_551if")
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_551if")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_551if")
 text = "Open shop"
 
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/OpenShopButton" to="." method="_on_open_shop_button_pressed"]
