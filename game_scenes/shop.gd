@@ -33,7 +33,7 @@ var customer: Customer = null
 var electronic_offered = false
 var customer_has_explained_conspiracy = false
 
-var bank = 0.0:
+var bank = 18000.0:
 	set(value):
 		bank_changed.emit(value)
 		bank = value
@@ -84,7 +84,7 @@ var day = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	bank = 0.0
+	bank = 18000.0
 	cash = 0.0
 	insurance_premium = randi_range(100, 200)
 	insurance_excess = randi_range(50, 100)
@@ -174,7 +174,7 @@ func initialize_day():
 	var shuffled_names = Globals.customer_names
 	shuffled_names.shuffle()
 	# Then generate the line
-	for i in randi_range(2,2): #TODO Change the range for production
+	for i in randi_range(5,10): #TODO Change the range for production
 		var c = Customer.new().set_name(shuffled_names.pop_front())
 		# if c.must_use_cash:
 		# 	c.set_name(c.name + " (W)")
@@ -306,7 +306,7 @@ func get_fee(method: String, amount: float):
 	return fee
 
 func handle_bank_run():
-	if randf() < 1.0: # robbery_chance:
+	if randf() < robbery_chance:
 		stolen_cash = cash
 		potential_loss = max(0, stolen_cash - insurance_excess)
 		start_dialogue(main_dialog, "street_robbery")
