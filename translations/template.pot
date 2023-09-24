@@ -1,0 +1,632 @@
+# LANGUAGE translation for Carta o Contanti? for the following files:
+# res://game_scenes/Intro.tscn
+# res://game_scenes/title.tscn
+# res://assets/main.dialogue
+# res://game_scenes/credits.tscn
+# res://game_scenes/day_card.tscn
+# res://game_scenes/shop.tscn
+# res://game_scenes/shop_floor.tscn
+# res://game_scenes/shop.gd
+# res://game_scenes/shop_ui.gd
+#
+# FIRST AUTHOR < EMAIL @ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Carta o Contanti?\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8-bit\n"
+
+#: game_scenes/Intro.tscn
+msgid "Pronto?"
+msgstr ""
+
+#: game_scenes/Intro.tscn
+msgid "Buongiorno, la chiamo dalla sua banca!"
+msgstr ""
+
+#: game_scenes/Intro.tscn
+msgid "Buongiorno, mi dica…"
+msgstr ""
+
+#: game_scenes/Intro.tscn
+msgid "La chiamo per ricordarle l'ultima rata per rimborsare il prestito di 20.000 soldi."
+msgstr ""
+
+#: game_scenes/Intro.tscn
+msgid "Certo, certo, ho ancora 7 giorni, non si preoccupi…"
+msgstr ""
+
+#: game_scenes/Intro.tscn
+msgid "Continua »"
+msgstr ""
+
+#: game_scenes/Intro.tscn
+msgid "Mi mancano solo 2.000 soldi, ce la posso fare!"
+msgstr ""
+
+#: game_scenes/Intro.tscn
+msgid "Andiamo!"
+msgstr ""
+
+#: game_scenes/Intro.tscn
+msgid "×"
+msgstr ""
+
+#: game_scenes/title.tscn
+msgid ""
+"Carta o\n"
+"Contanti?"
+msgstr ""
+
+#: game_scenes/title.tscn
+msgid "Inizia"
+msgstr ""
+
+#: game_scenes/title.tscn
+msgid "Crediti"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "dialogue"
+msgid "{{customer.name}}"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "dialogue"
+msgid "Scegli un metodo di pagamento elettronico:"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "dialogue"
+msgid "Ladro"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t5098d4b35f"
+msgid "{{customer.name}} si avvicina alla cassa. [[I suoi acquisti ammontano a|Gli articoli che ha con sé costano un totale di]] {{amount_str}} soldi. [next=auto]"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t5eb700c9b4"
+msgid "Vorrei pagare in contanti"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "ta3ca901558"
+msgid "Posso pagare in contanti?"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tf74e2b0d97"
+msgid "Vorrei pagare con la carta"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tbf22633903"
+msgid "Posso pagare con la carta?"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tf9e13ed100"
+msgid "[[Va bene|Ok|D'accordo|Ottimo]]"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tc4ce3005b2"
+msgid "[[Preferisco in contanti|Ho il POS rotto|No, mi costa troppo di commissioni|Il contante non costa niente]]"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tee9b4dc95b"
+msgid "[[O anche con la carta|Ho anche il POS, se vuole|Preferirei con la carta, se può|Con la carta mi farebbe un favore]]"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t7b8b53d2a2"
+msgid "Assolutamente no, il denaro elettronico è un modo per renderci schiavi dei sistemi finanziari globali!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "ta90090e2ee"
+msgid "Non sia ingenuo, ci vogliono controllare e negare la libertà di scelta!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t1926e65357"
+msgid "Bravo, così ci toglieranno il contante e saremo dipendenti dalle banche!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t6f5a5ae690"
+msgid "I pagamenti elettronici sono solo uno strumento per il controllo totale delle nostre transazioni finanziarie da parte del governo e delle grandi corporazioni."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t8793bc0dd2"
+msgid "I contanti garantiscono la privacy e la libertà finanziaria, mentre i pagamenti elettronici tracciano ogni singolo movimento che facciamo."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t193c055d25"
+msgid "Se ci affidiamo esclusivamente ai pagamenti elettronici, potremmo trovarci in una situazione di vulnerabilità totale in caso di blackout o malfunzionamenti del sistema."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tcd7b176a12"
+msgid "I contanti sono un mezzo di scambio reale, tangibile e resistente alle minacce cibernetiche, a differenza dei pagamenti elettronici che possono essere facilmente compromessi."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t16872b2d94"
+msgid "L'uso dei contanti contribuisce a sostenere l'economia locale e i piccoli commercianti, evitando le spese delle transazioni elettroniche che incidono sul loro margine di profitto."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t9a74d87ece"
+msgid "I pagamenti elettronici mettono a rischio la nostra sicurezza finanziaria, esponendoci al rischio di frodi, hackeraggi e furti di identità."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t08555f93c1"
+msgid "I contanti sono un diritto costituzionale che ci garantisce l'indipendenza finanziaria e la libertà di scelta."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t63ae0ce65d"
+msgid "L'uso dei contanti favorisce la trasparenza nelle transazioni, evitando la creazione di un sistema finanziario completamente digitale che può essere manipolato a piacimento."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "ta82715f786"
+msgid "I pagamenti elettronici rendono le persone dipendenti da un sistema tecnologico che potrebbe essere facilmente sottoposto a controllo o restrizioni da parte delle autorità."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t72470640eb"
+msgid "I contanti sono l'unica forma di denaro a corso legale, mentre i pagamenti elettronici sono soggetti a regolamenti e limitazioni imposte da terze parti che possono influenzare negativamente la nostra libertà finanziaria."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t0548af9398"
+msgid "[[Ha ragione|Giusto|Ah, sì]], meglio usare i contanti"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t7ded11d970"
+msgid "[[Ha ragione|Giusto|Ah, sì]], meglio usare i contanti"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t8da799ac0e"
+msgid "[[Non è proprio verissimo…|Le cose non stanno proprio così, in realtà…|A me non risulta…]] comunque [[continuo a preferire|a me fa più comodo]] la carta."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tfe7559e89f"
+msgid "Vedo che è saldo nel suo supporto al NWO. Dirò a tutti di evitare questo negozio. Si tenga la sua merce!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t578cff549d"
+msgid "Incredibile! L'hanno plagiata proprio bene, eh? Beh, ci sarà qualcun altro da cui posso rifornirmi…"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t1bd75a985d"
+msgid "Se non posso pagare in contanti, cercherò un altro negozio!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t2c73f3cd3b"
+msgid "Se insiste con i pagamenti elettronici, sarà bene che cercare un altro negozio che rispetti i suoi clienti!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t4344f5ceda"
+msgid "Se proprio non vuole accettare contanti, dovrò trovare altro negozio più in linea con le mie preferenze di pagamento!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t2c7e6581fe"
+msgid "Mi dispiace, ma se non posso pagare in contanti, dovrò cercare altrove!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "td82f301aa0"
+msgid "Se l'uso dei contanti non è un'opzione qui, allora dovrò trovare un negozio dove sia possibile utilizzarli."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t57650fc249"
+msgid "Bene, andrò dove non devo dipendere dalla tecnologia per i miei acquisti!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t46f17aa992"
+msgid "Mi piace avere il controllo fisico dei miei soldi, cercherò qualcun altro che la pensi allo stesso modo."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t0c489d1849"
+msgid "Sono convinto che l'uso dei contanti aiuti a sostenere l'economia locale, cercherò un altro negozio in zona."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t0aa7a36049"
+msgid "Mi piace scambiare soldi reali, di sicuro ci sarà un altro negoziante a cui piace la stessa cosa."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t00ba9114c7"
+msgid "Ma non ci sono commissioni altissime?"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t4acdcd40e5"
+msgid "Eh, ma così risparmiamo sulle commissioni!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tff18300c0a"
+msgid "Ma così regaliamo soldi alle banche…"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "td83c7dc28d"
+msgid "Ma così mi tracciano e allora addio privacy!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tf567916623"
+msgid "E se poi qualcuno mi clona la carta e mi entra nel conto?"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t5c1df5b256"
+msgid "Ma se non usiamo il contante finché possiamo, ce lo toglieranno del tutto!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t4484e7e82d"
+msgid "Ma lei non preferisce vedere dei soldi in cassa che un numero in banca?"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t35542014e3"
+msgid "No, e poi [[pagare con|usare]] la carta [[conviene|ha i suoi vantaggi]]"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t4da9ee2189"
+msgid "Va bene, per questa volta pago con la carta…"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t65990df33b"
+msgid "Ok, allora pago con la carta…"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tfc11c85622"
+msgid "Continuo a preferire i contanti, quindi le lascio la sua merce e vado altrove."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tb5de9c3158"
+msgid "Buh"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tde3a6abd20"
+msgid "Preferisco la carta, così evito di portarmi in giro un sacco di contanti, sa com'è… la sicurezza!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t85175566a4"
+msgid "Eh, ma con la carta tengo meglio traccia delle spese."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t64d11b3527"
+msgid "Ma si figuri, con la carta non devo cercare uno sportello ogni volta che devo pagare."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t7dfd31e38c"
+msgid "No, la carta è meglio: se la perdo o me la rubano, non ho perso niente, mica come coi contanti…"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t83a3e238b2"
+msgid "Con la carta non dobbiamo stare lì a contare i centesimini e controllare il resto…"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t2758bcf973"
+msgid "Con la carta so subito quanto ho speso e faccio prima a fare i conti a fine giornata!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "td70e442e5e"
+msgid "La carta mi dà punti o cashback, così ci guadagno io e lei non perde il cliente, no?"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t49de81b84a"
+msgid "Con la carta pago veloce, senza stare lì a contar soldi o fare la danza delle monete."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t8c6283623f"
+msgid "[[Giusto|Bene|Ottimo|Perfetto]], [[vada per la carta|eccole il terminale|pronti con la carta]]."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t142f3d3cf6"
+msgid "[[Giusto|Bene|Ottimo|Perfetto]], [[vada per la carta|eccole il terminale|pronti con la carta]]."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t5ae48e245e"
+msgid "Continuo a preferire i contanti"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t64b774becf"
+msgid "Continuo a preferire i contanti"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t43b787e073"
+msgid "I contanti sono l'unica forma di pagamento in corso legale"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tb7dcd1a020"
+msgid "E allora niente, me ne andrò da un'altra parte, magari trovo qualcuno che non evade…"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tcf02cb83a5"
+msgid "[[Ma guarda te|Incredibile]], accettare i pagamenti elettronici sarebbe obbligatorio ma c'è ancora gente come lei che pensa di essere al di sopra della legge. Venda questa roba a qualcun altro."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t8ccb038c4e"
+msgid "[[Eh|Guarda qua]], uno prova a spingere per cambiare le cose in meglio ma c'è sempre qualcuno che rema contro. Non le spiacerà trovare un altro cliente a cui vendere questa merce."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t4ffa15cde5"
+msgid "Va bene, farò [[un|due|tre]] km in più per andare dal suo concorrente, allora, rieccole la sua roba."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t9af48f8f71"
+msgid "Per questa volta pago in contanti… ma spargerò la voce."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "ta76fceda0b"
+msgid "OK, stavolta passi ma mi ricorderò di andare in cerca da qualche altra parte, la prossima volta."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t488e3fa8a8"
+msgid "Va bene, però il suo collega di là della strada mi hanno detto che non si fa problemi con le carte…"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t7756872929"
+msgid "Certo, ma resta l'obbligo di accettare i pagamenti elettronici"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "ta2bd7bbd9e"
+msgid ""
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tc2b37b1d9d"
+msgid "POS (commissione: {{100 * get_fee("card", amount)}}%)"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t4ed730b069"
+msgid "PayUp (commissione: {{100 * get_fee("payup", amount)}}%)"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t53a0472898"
+msgid "OddlyPay (commissione: {{100 * get_fee("oddlypay", amount)}}%)"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t97b8bd45ca"
+msgid "A fine giornata hai {{bank}} soldi in banca e {{cash}} soldi in contanti."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t0bc162474e"
+msgid "Porta i contanti in banca."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t1dfcf7f15f"
+msgid "Torna a casa."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t267a4f433e"
+msgid "E anche oggi abbiamo portato a casa la giornata."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tec23789721"
+msgid "Bene, e ora spritz!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t6cf379d95d"
+msgid "Certo che è stato un po' un rischio, con tutto quel contante, ma è andata bene."
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t0bf22e3e6f"
+msgid "Domani è un altro giorno!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t678a0c3c68"
+msgid "In alto le mani!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tfd830ec1e9"
+msgid "In alto le mani!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t0d8d7acb60"
+msgid "O la borsa o la vita!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t99d3129d55"
+msgid "O la borsa o la vita!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t28fab67c1f"
+msgid "Svuota il portafogli!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tb4e434bc4a"
+msgid "Svuota il portafogli!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tcc089a8dbd"
+msgid "Svuota le tasche!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "ta63e78c003"
+msgid "Svuota le tasche!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t8873a801e3"
+msgid "Sei stato derubato mentre andavi in banca! La polizia è arrivata troppo tardi per fermare il ladro e hai perso {{stolen_cash}} soldi!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t47f1d93a36"
+msgid "Chiama l'assicurazione (recuperi {{potential_loss}} soldi, il premio salirà)"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tc20800c867"
+msgid "Chiama l'assicurazione (recuperi {{potential_loss}} soldi, il premio salirà)"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "tdad83184fe"
+msgid "Torna a casa (perdi {{stolen_cash}} soldi)"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t29909e55c2"
+msgid "Sei stato rapinato in negozio! La polizia è arrivata troppo tardi per fermare il ladro e hai perso {{stolen_cash}} soldi!"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t8a8611b98d"
+msgid "Chiudi e torna a casa (perdi {{stolen_cash}} soldi)"
+msgstr ""
+
+#: assets/main.dialogue
+msgctxt "t24bf932818"
+msgid "L'assicurazione ti restituisce {{insurance_refund}}. Il nuovo premio è {{insurance_premium}} con una franchigia di {{insurance_excess}}."
+msgstr ""
+
+#: game_scenes/credits.tscn
+msgid ""
+"\n"
+"[center]MUSICA\n"
+"[url="https://soundcloud.com/kenobit/bit-beat-beach?utm_source=cash_or_card&utm_medium=videogame"][color="#80bfff"]Bit Beat Beach[/color][/url] di Kenobit\n"
+"\n"
+"AVATAR generati con [url="https://kenney.itch.io/avatar-mixer?utm_source=cash_or_card&utm_medium=videogame"][color="#80bfff"]Avatar Mixer[/color][/url] di Kenney\n"
+"\n"
+"COSE\n"
+"[url="https://github.com/nathanhoad/godot_dialogue_manager"][color="#80bfff"]Dialogue Manager[/color][/url] di Nathan Hoad\n"
+"\n"
+"TUTTO IL RESTO di [url="https://andreafranceschini.org?utm_source=cash_or_card&utm_medium=videogame"][color="#80bfff"]Andrea Franceschini[/color][/url]\n"
+"\n"
+"Questo gioco è stato creato come parte di un progetto finanziato dall'Unione Europea\n"
+"HORIZON-MSCA-2021-PF-01, Project ID 101062788 (EduGames)\n"
+"\n"
+"Per maggiori informazioni, visita\n"
+"[url="https://edugames.andreafranceschini.org?utm_source=cash_or_card&utm_medium=videogame"][color="#80bfff"]edugames.andreafranceschini.org[/color][/url]\n"
+"[/center]"
+msgstr ""
+
+#: game_scenes/credits.tscn
+msgid "« indietro"
+msgstr ""
+
+#: game_scenes/day_card.tscn
+msgid "Apri il negozio"
+msgstr ""
+
+#: game_scenes/shop.gd
+msgid "Giorno %d"
+msgstr ""
+
+#: game_scenes/shop.gd
+#: game_scenes/shop_ui.gd
+msgid "Banca: %.2f"
+msgstr ""
+
+#: game_scenes/shop.gd
+#: game_scenes/shop_ui.gd
+msgid "Contanti: %.2f"
+msgstr ""
+
+#: game_scenes/shop.gd
+#: game_scenes/shop_ui.gd
+msgid "Costi elettronici: %.2f"
+msgstr ""
+
+#: game_scenes/shop.gd
+#: game_scenes/shop_ui.gd
+msgid "Costi contanti: %.2f"
+msgstr ""
+
+#: game_scenes/shop.gd
+#: game_scenes/shop_ui.gd
+msgid "Assicurazione: %.2f"
+msgstr ""
+
+#: game_scenes/shop.gd
+#: game_scenes/shop_ui.gd
+msgid "Franchigia: %.2f"
+msgstr ""
+
+#: game_scenes/shop.gd
+#: game_scenes/shop_ui.gd
+msgid "Mancati guadagni: %.2f"
+msgstr ""
+
+#: game_scenes/shop.gd
+#: game_scenes/shop_ui.gd
+msgid "Rischio rapina: %.1f %%"
+msgstr ""
+
+#: game_scenes/shop.gd
+msgid "Totale: %s"
+msgstr ""

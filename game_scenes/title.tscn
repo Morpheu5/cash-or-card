@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://denm2yh015kn5"]
+[gd_scene load_steps=8 format=3 uid="uid://denm2yh015kn5"]
 
 [ext_resource type="Texture2D" uid="uid://bgiurwt8cb5m1" path="res://assets/pics/shop_pixel.png" id="1_6b4v6"]
 [ext_resource type="Script" path="res://game_scenes/title.gd" id="1_ogmku"]
 [ext_resource type="FontVariation" uid="uid://dekctvehlocm3" path="res://assets/fonts/TitleFont.tres" id="2_x8cyh"]
 [ext_resource type="Theme" uid="uid://6nk5w4vjdw2u" path="res://assets/theme.tres" id="4_anlqf"]
+[ext_resource type="Texture2D" uid="uid://c130esxumg068" path="res://assets/flags/it.png" id="5_wf652"]
+[ext_resource type="Texture2D" uid="uid://cs30fx73mq2yr" path="res://assets/flags/uk.png" id="6_10m85"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a1d8t"]
 
@@ -66,23 +68,36 @@ layout_mode = 2
 theme = ExtResource("4_anlqf")
 text = "Inizia"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
-visible = false
+[node name="HSeparato" type="HSeparator" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+theme_override_styles/separator = SubResource("StyleBoxEmpty_a1d8t")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="IT" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
-text = "Italiano"
+size_flags_horizontal = 3
+icon = ExtResource("5_wf652")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="VSeparator" type="VSeparator" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer"]
 visibility_layer = 0
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_constants/separation = 40
 
 [node name="EN" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(2.08165e-12, 32)
 layout_mode = 2
-text = "English"
+size_flags_horizontal = 3
+icon = ExtResource("6_10m85")
+flat = true
+icon_alignment = 1
+expand_icon = true
 
 [node name="CreditsButton" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
@@ -90,4 +105,6 @@ theme = ExtResource("4_anlqf")
 text = "Crediti"
 
 [connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/IT" to="." method="set_locale" binds= ["it_IT"]]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/EN" to="." method="set_locale" binds= ["en_GB"]]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]

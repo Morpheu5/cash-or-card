@@ -136,7 +136,7 @@ func show_day_card():
 
 func radio_off(sudden: bool = false):
 	if sudden:
-		await create_tween().tween_property($AudioStreamPlayer, 'volume_db', -40, 0.1)
+		await create_tween().tween_property($AudioStreamPlayer, 'volume_db', -40, 0.1).finished
 	else:
 		await create_tween().tween_property($AudioStreamPlayer, 'volume_db', -40, 2).finished
 	$AudioStreamPlayer.playing = false
@@ -192,15 +192,15 @@ func initialize_day():
 		customerLine.append(customer_node)
 	
 	# Show new day info and current stats
-	$HUD/DayCard/%TitleLabel.text = "Giorno %d" % day
-	$HUD/DayCard/%BankLabel.text = "Banca: %.2f" % bank
-	$HUD/DayCard/%CashLabel.text = "Contante: %.2f" % cash
-	$HUD/DayCard/%ElectronicFeeLossLabel.text = "Costi elettronici: %.2f" % electronic_fee_loss
-	$HUD/DayCard/%CashFeeLossLabel.text = "Costi contanti: %.2f" % cash_fee_loss
-	$HUD/DayCard/%InsurancePremiumLabel.text = "Assicurazione: %.2f" % insurance_premium
-	$HUD/DayCard/%InsuranceExcessLabel.text = "Franchigia: %.2f" % insurance_excess
-	$HUD/DayCard/%IncomeLossLabel.text = "Mancati guadagni: %.2f" % income_lost
-	$HUD/DayCard/%RobberyChanceLabel.text = "Rischio rapina: %.2f" % robbery_chance
+	$HUD/DayCard/%TitleLabel.text = tr("Giorno %d") % day
+	$HUD/DayCard/%BankLabel.text = tr("Banca: %.2f") % bank
+	$HUD/DayCard/%CashLabel.text = tr("Contanti: %.2f") % cash
+	$HUD/DayCard/%ElectronicFeeLossLabel.text = tr("Costi elettronici: %.2f") % electronic_fee_loss
+	$HUD/DayCard/%CashFeeLossLabel.text = tr("Costi contanti: %.2f") % cash_fee_loss
+	$HUD/DayCard/%InsurancePremiumLabel.text = tr("Assicurazione: %.2f") % insurance_premium
+	$HUD/DayCard/%InsuranceExcessLabel.text = tr("Franchigia: %.2f") % insurance_excess
+	$HUD/DayCard/%IncomeLossLabel.text = tr("Mancati guadagni: %.2f") % income_lost
+	$HUD/DayCard/%RobberyChanceLabel.text = tr("Rischio rapina: %.1f %%") % (robbery_chance * 100)
 	await show_day_card()
 
 func start_dialogue(res: DialogueResource, chap: String):
@@ -240,7 +240,7 @@ func new_customer():
 	select_payment_method(customer)
 	amount = snapped(randf_range(0.05, 100.0), 0.01)
 	amount_str = ("%.2f" % amount).replace(".", ",")
-	amountLabel.text = "Totale: %s" % amount_str
+	amountLabel.text = tr("Totale: %s") % amount_str
 	electronic_offered = false
 	await show_info_panel()
 	
@@ -252,7 +252,7 @@ func customer_walks_away():
 	var customer_tween = create_tween()
 	customer_tween.tween_property(customer_node, 'global_position', Vector2(-100, customer_node.global_position.y), 9)
 	customer_node.scale.x = -1
-	customer_node.global_position.x += customer_sprite.texture.get_width()/3
+	customer_node.global_position.x += customer_sprite.texture.get_width() / 3
 	customer_node.global_position.y -= 20
 	var customer_ap: AnimationPlayer = customer_node.get_node('AnimationPlayer')
 	customer_ap.set_speed_scale(1.0)
@@ -296,13 +296,9 @@ func handle_payment(method: String):
 		bank = snapped(bank + amount * (1 - fee), 0.01)
 		electronic_fee_loss += amount * fee
 
-var _fee: float:
-	get:
-		return get_fee("card", amount)
-
-func get_fee(method: String, amount: float):
+func get_fee(method: String, _amount: float):
 	var p = Globals.payment_methods[method]
-	var fee = p["low_fee"] if amount < p["fee_threshold"] else p["high_fee"]
+	var fee = p["low_fee"] if _amount < p["fee_threshold"] else p["high_fee"]
 	return fee
 
 func handle_bank_run():
@@ -316,7 +312,7 @@ func handle_bank_run():
 		start_dialogue(main_dialog, "end_bank_run")
 	cash = 0.0
 
-func handle_insurance_claim(amount: float = 0.0):
+func handle_insurance_claim():
 	insurance_refund = max(0, stolen_cash - insurance_excess)
 	bank = snapped(bank + insurance_refund * (1 - bank_cash_fee), 0.01)
 	cash_fee_loss += snapped(insurance_refund * bank_cash_fee, 0.01)

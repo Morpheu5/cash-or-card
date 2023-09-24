@@ -86,11 +86,14 @@ layout_mode = 2
 [node name="CustomerNameLabel" type="Label" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+auto_translate = false
+localize_numeral_system = false
 text = "Name"
 
 [node name="AmountLabel" type="Label" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+auto_translate = false
 text = "Amount"
 
 [node name="CustomerDebugger" type="Label" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
@@ -116,41 +119,49 @@ size_flags_horizontal = 8
 [node name="BankLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+auto_translate = false
 text = "Bank: 0.00"
 
 [node name="CashLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+auto_translate = false
 text = "Cash: 0.00"
 
 [node name="ElectronicFeeLossLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+auto_translate = false
 text = "Electronic fees: 0.00"
 
 [node name="CashFeeLossLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+auto_translate = false
 text = "Cash fees: 0.00"
 
 [node name="InsurancePremiumLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+auto_translate = false
 text = "Insurance: 0.00"
 
 [node name="InsuranceExcessLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+auto_translate = false
 text = "Excess: 0.00"
 
 [node name="IncomeLossLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+auto_translate = false
 text = "Lost income: 0.00"
 
 [node name="RobberyChanceLabel" type="Label" parent="ShopUI/HBoxContainer/StatsPanel/MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+auto_translate = false
 text = "Risk: 0.0%"
 
 [node name="Blackout" type="ColorRect" parent="."]
@@ -166,5 +177,3 @@ metadata/_edit_use_anchors_ = true
 [node name="DayCard" parent="." instance=ExtResource("2_4oenc")]
 visible = false
 z_index = 0
-
-[connection signal="open_shop_button_pressed" from="DayCard" to="." method="_on_day_card_open_shop_button_pressed"]
