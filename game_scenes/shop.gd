@@ -225,7 +225,9 @@ func loop() -> void:
 		line_moves_on()
 	firstCustomer = false
 	
-	if not customers.is_empty():
+	if randf() <= robbery_chance:
+		shop_robbery()
+	elif not customers.is_empty():
 		await hide_info_panel()
 		await new_customer()
 	else:
@@ -246,11 +248,11 @@ func new_customer():
 	
 	start_dialogue(main_dialog, "main")
 
-func customer_walks_away():
+func customer_walks_away(running = false):
 	var customer_node = customerLine.pop_front()
 	var customer_sprite: Sprite2D = customer_node.get_node('Sprite')
 	var customer_tween = create_tween()
-	customer_tween.tween_property(customer_node, 'global_position', Vector2(-100, customer_node.global_position.y), 9)
+	customer_tween.tween_property(customer_node, 'global_position', Vector2(-100, customer_node.global_position.y), 3 if running else 9)
 	customer_node.scale.x = -1
 	customer_node.global_position.x += customer_sprite.texture.get_width() / 3
 	customer_node.global_position.y -= 20
@@ -270,15 +272,21 @@ func line_moves_on():
 		c_tween.tween_property(c, 'global_position', c.global_position + Vector2(c_sprite.texture.get_size().x/2, 0), randf_range(0.5, 1.5)).set_delay(0.25*i)
 		c_tween.tween_callback(func(): c.get_node('AnimationPlayer').play('standing'))
 
+func shop_robbery():
+	radio_off(true)
+	# TODO Add robbery stinger
+	stolen_cash = cash
+	potential_loss = max(0, stolen_cash - insurance_excess)
+	start_dialogue(main_dialog, "shop_robbery")
+	for i in customers.size():
+		customer_walks_away(true)
+	customers = []
+
+
 func end_of_day():
 	await create_tween().tween_property($HUD/%InfoPanel, 'modulate', Color(1, 1, 1, 0), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT).finished
 	if randf() <= robbery_chance:
-		radio_off(true)
-		# TODO Add robbery stinger
-		stolen_cash = cash
-		potential_loss = max(0, stolen_cash - insurance_excess)
-		start_dialogue(main_dialog, "shop_robbery")
-		customers = []
+		shop_robbery()
 	elif cash > 0.0:
 		start_dialogue(main_dialog, "ask_bank_run")
 	else:
