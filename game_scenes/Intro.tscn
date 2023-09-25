@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://chsx0q21qsby3"]
+[gd_scene load_steps=10 format=3 uid="uid://chsx0q21qsby3"]
 
 [ext_resource type="Script" path="res://game_scenes/Intro.gd" id="1_ky6kw"]
 [ext_resource type="Texture2D" uid="uid://cfitb7k6y3vce" path="res://assets/faces/player.png" id="1_w1jvo"]
 [ext_resource type="Texture2D" uid="uid://cti8qwisdwyyg" path="res://assets/faces/bank.png" id="2_vn0qk"]
 [ext_resource type="AudioStream" uid="uid://c0od5g6jabj6r" path="res://assets/sfx/phone_ring.ogg" id="3_jfrnq"]
+[ext_resource type="AudioStream" uid="uid://wria2trwp0fk" path="res://assets/music/RoccoW_Welcome.ogg" id="5_hsofg"]
 
 [sub_resource type="Animation" id="Animation_wiwbv"]
 length = 0.001
@@ -362,6 +363,20 @@ tracks/12/keys = {
 "update": 1,
 "values": [false, true]
 }
+tracks/13/type = "method"
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/path = NodePath("BGMusicPlayer")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/keys = {
+"times": PackedFloat32Array(1.6),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_sppo2"]
 resource_name = "cutscene_02"
@@ -602,6 +617,10 @@ libraries = {
 }
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="BGMusicPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_hsofg")
+volume_db = -12.0
 
 [connection signal="pressed" from="CanvasLayer/Scene01/NextButton" to="." method="_on_next_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Scene02/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]

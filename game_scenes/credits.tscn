@@ -24,6 +24,7 @@ grow_vertical = 2
 bbcode_enabled = true
 text = "
 [center]MUSICA
+[url=\"https://freemusicarchive.org/music/RoccoW/_1035/RoccoW_-__-_01_Welcome/?utm_source=cash_or_card&utm_medium=videogame\"][color=\"#80bfff\"]Welcome[/color][/url] di RoccoW
 [url=\"https://soundcloud.com/kenobit/bit-beat-beach?utm_source=cash_or_card&utm_medium=videogame\"][color=\"#80bfff\"]Bit Beat Beach[/color][/url] di Kenobit
 
 AVATAR generati con [url=\"https://kenney.itch.io/avatar-mixer?utm_source=cash_or_card&utm_medium=videogame\"][color=\"#80bfff\"]Avatar Mixer[/color][/url] di Kenney
@@ -37,7 +38,7 @@ Questo gioco è stato creato come parte di un progetto finanziato dall'Unione Eu
 HORIZON-MSCA-2021-PF-01, Project ID 101062788 (EduGames)
 
 Per maggiori informazioni, visita
-[url=\"https://edugames.andreafranceschini.org?utm_source=cash_or_card&utm_medium=videogame\"][color=\"#80bfff\"]edugames.andreafranceschini.org[/color][/url]
+[url=\"https://edugames.andreafranceschini.org/it/cash-or-card?utm_source=cash_or_card&utm_medium=videogame\"][color=\"#80bfff\"]edugames.andreafranceschini.org/it/cash-or-card[/color][/url]
 [/center]"
 meta_underlined = false
 

@@ -69,6 +69,10 @@ msgstr ""
 msgid "Crediti"
 msgstr ""
 
+#: game_scenes/title.tscn
+msgid "Ingrandisci"
+msgstr ""
+
 #: assets/main.dialogue
 msgctxt "dialogue"
 msgid "{{customer.name}}"
@@ -558,6 +562,7 @@ msgstr ""
 msgid ""
 "\n"
 "[center]MUSICA\n"
+"[url="https://freemusicarchive.org/music/RoccoW/_1035/RoccoW_-__-_01_Welcome/?utm_source=cash_or_card&utm_medium=videogame"][color="#80bfff"]Welcome[/color][/url] di RoccoW\n"
 "[url="https://soundcloud.com/kenobit/bit-beat-beach?utm_source=cash_or_card&utm_medium=videogame"][color="#80bfff"]Bit Beat Beach[/color][/url] di Kenobit\n"
 "\n"
 "AVATAR generati con [url="https://kenney.itch.io/avatar-mixer?utm_source=cash_or_card&utm_medium=videogame"][color="#80bfff"]Avatar Mixer[/color][/url] di Kenney\n"
@@ -571,7 +576,7 @@ msgid ""
 "HORIZON-MSCA-2021-PF-01, Project ID 101062788 (EduGames)\n"
 "\n"
 "Per maggiori informazioni, visita\n"
-"[url="https://edugames.andreafranceschini.org?utm_source=cash_or_card&utm_medium=videogame"][color="#80bfff"]edugames.andreafranceschini.org[/color][/url]\n"
+"[url="https://edugames.andreafranceschini.org/it/cash-or-card?utm_source=cash_or_card&utm_medium=videogame"][color="#80bfff"]edugames.andreafranceschini.org/it/cash-or-card[/color][/url]\n"
 "[/center]"
 msgstr ""
 

@@ -272,7 +272,7 @@ func line_moves_on():
 
 func end_of_day():
 	await create_tween().tween_property($HUD/%InfoPanel, 'modulate', Color(1, 1, 1, 0), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT).finished
-	if randf() < robbery_chance:
+	if randf() <= robbery_chance:
 		radio_off(true)
 		# TODO Add robbery stinger
 		stolen_cash = cash
@@ -286,7 +286,7 @@ func end_of_day():
 		run()
 
 func update_robbery_chance():
-	robbery_chance = 0.005 + cash / 10000
+	robbery_chance = 0.005 + cash / 5000
 
 func handle_payment(method: String):
 	var fee = get_fee(method, amount)
@@ -302,7 +302,7 @@ func get_fee(method: String, _amount: float):
 	return fee
 
 func handle_bank_run():
-	if randf() < robbery_chance:
+	if randf() <= robbery_chance:
 		stolen_cash = cash
 		potential_loss = max(0, stolen_cash - insurance_excess)
 		start_dialogue(main_dialog, "street_robbery")
