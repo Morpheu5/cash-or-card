@@ -9,6 +9,7 @@ const Walker = preload("res://game_scenes/walker.tscn")
 @onready var customerNameLabel = $HUD/%CustomerNameLabel
 @onready var customerPicture = $HUD/%CustomerPicture
 @onready var amountLabel = $HUD/%AmountLabel
+@onready var customerDescription = $HUD/%CustomerDescription
 
 @onready var shopFloor = $HUD/%ShopFloor
 
@@ -16,6 +17,7 @@ var customerLine: Array[Node2D] = []
 var firstCustomer = true
 
 signal customer_debug
+signal log_request
 
 signal cash_changed(new_value)
 signal bank_changed(new_value)
@@ -94,6 +96,7 @@ func _ready() -> void:
 	customer_has_explained_conspiracy = false
 	
 	customer_debug.connect(do_customer_debug)
+	log_request.connect(_log)
 	
 	$HUD/Blackout.color = Color(0, 0, 0, 1)
 	$HUD/Blackout.visible = true
@@ -225,7 +228,7 @@ func loop() -> void:
 		line_moves_on()
 	firstCustomer = false
 	
-	if randf() <= robbery_chance:
+	if randf() <= robbery_chance and day > 2:
 		shop_robbery()
 	elif not customers.is_empty():
 		await hide_info_panel()
@@ -233,10 +236,33 @@ func loop() -> void:
 	else:
 		await end_of_day()
 
+func customer_description():
+	var desc = ""
+	if customer.must_use_cash:
+		desc = desc + tr("Venera i contanti. ")
+	elif customer.prefers_cash == 0:
+		desc = desc + tr("Non ha preferenze di pagamento. ")
+	elif customer.prefers_cash > 0 and customer.prefers_cash < 3:
+		desc = desc + tr("Apprezza i contanti. ")
+	elif customer.prefers_cash >= 3:
+		desc = desc + tr("Ama i contanti. ")
+
+	if customer.denial_tolerance < 2:
+		desc = desc + tr("Ha pochissima pazienza. ")
+	elif customer.denial_tolerance >= 2 and customer.denial_tolerance < 4:
+		desc = desc + tr("È ragionevole. ")
+	elif customer.denial_tolerance >= 4:
+		desc = desc + tr("È estremamente paziente. ")
+	
+	return desc
+
 func new_customer():
 	customer = customers.pop_front()
 	customerNameLabel.text = customer.name
 	customerPicture.texture = load("res://assets/faces/%s.png" % customer.name)
+	var desc = customer_description()
+
+	customerDescription.text = desc
 	
 	customer_has_explained_conspiracy = false
 	select_payment_method(customer)
@@ -274,18 +300,23 @@ func line_moves_on():
 
 func shop_robbery():
 	radio_off(true)
+	for i in customers.size():
+		customer_walks_away(true)
 	# TODO Add robbery stinger
 	stolen_cash = cash
 	potential_loss = max(0, stolen_cash - insurance_excess)
+	var t = randi_range(1, 3)
+	customerPicture.texture = load("res://assets/faces/Thief%02d.png" % t)
+	customerNameLabel.text = tr("Al ladro!")
+	amountLabel.text = tr("Un ladro selvaggio appare.")
+	await show_info_panel()
 	start_dialogue(main_dialog, "shop_robbery")
-	for i in customers.size():
-		customer_walks_away(true)
 	customers = []
 
 
 func end_of_day():
 	await create_tween().tween_property($HUD/%InfoPanel, 'modulate', Color(1, 1, 1, 0), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT).finished
-	if randf() <= robbery_chance:
+	if randf() <= robbery_chance and day > 2:
 		shop_robbery()
 	elif cash > 0.0:
 		start_dialogue(main_dialog, "ask_bank_run")
@@ -337,3 +368,7 @@ func select_payment_method(c: Customer):
 	else:
 		c.set_payment_method("card")
 
+func _log(what: Dictionary = {}):
+	var message = { "pid": Globals.participant_id, "timestamp": Time.get_datetime_string_from_system() }
+	message.merge(what)
+	print(JSON.stringify(message))

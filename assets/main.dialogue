@@ -1,5 +1,5 @@
 ~ main
-
+do emit("log_request", { "dialogue_title": "main", "event_type": "game", "event": "customer_approach", "customer_payment_method": customer.payment_method, "customer", customer })
 {{customer.name}} si avvicina alla cassa. [[I suoi acquisti ammontano a|Gli articoli che ha con sé costano un totale di]] {{amount_str}} soldi. [next=auto] [ID:t5098d4b35f]
 if (customer.payment_method == "cash")
 	% {{customer.name}}: Vorrei pagare in contanti [ID:t5eb700c9b4]
@@ -9,6 +9,7 @@ else
 	% {{customer.name}}: Posso pagare con la carta? [ID:tbf22633903]
 endif
 - [[Va bene|Ok|D'accordo|Ottimo]] [ID:tf9e13ed100]
+	do emit("log_request", { "dialogue_title": "main", "event_type": "player", "event": "accept_payment_method", "customer_payment_method", customer.payment_method })
 	if customer.payment_method == "cash"
 		do handle_payment("cash")
 		do loop()
@@ -16,9 +17,11 @@ endif
 	else
 		=> handle_card_payment
 	endif
-- [[Preferisco in contanti|Ho il POS rotto|No, mi costa troppo di commissioni|Il contante non costa niente]] [ID:tc4ce3005b2] [if customer.payment_method == "card"]
+- [[Preferisco in contanti|Ho il POS rotto|No, mi costa troppo di commissioni|Il contante non costa niente|Avrebbe dovuto dirmelo prima!]] [ID:tc4ce3005b2] [if customer.payment_method == "card"]
+	do emit("log_request", { "dialogue_title": "main", "event_type": "player", "event": "propose_cash_payment", "customer_payment_method", customer.payment_method })
 	=> propose_cash_payment
 - [[O anche con la carta|Ho anche il POS, se vuole|Preferirei con la carta, se può|Con la carta mi farebbe un favore]] [ID:tee9b4dc95b] [if customer.payment_method == "cash"]
+	do emit("log_request", { "dialogue_title": "main", "event_type": "player", "event": "propose_card_payment", "customer_payment_method", customer.payment_method })
 	=> propose_card_payment
 => END
 
@@ -209,7 +212,7 @@ Sei stato rapinato in negozio! La polizia è arrivata troppo tardi per fermare i
 
 
 ~ insurance_claim_end
-L'assicurazione ti restituisce {{insurance_refund}}. Il nuovo premio è {{insurance_premium}} con una franchigia di {{insurance_excess}}. [ID:t24bf932818]
+L'assicurazione ti restituisce {{insurance_refund}} soldi. Il nuovo premio è {{insurance_premium}} con una franchigia di {{insurance_excess}}. [ID:t24bf932818]
 do run()
 => END
 

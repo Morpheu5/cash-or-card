@@ -27,6 +27,7 @@ driver/mix_rate.web=44100
 
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 Globals="*res://classes/globals.gd"
+Logger="*res://classes/logger.gd"
 
 [dialogue_manager]
 
@@ -75,12 +76,9 @@ locale/fallback="it"
 
 [rendering]
 
-textures/canvas_textures/default_texture_filter=0
 textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
-environment/ssao/quality=0
-anti_aliasing/screen_space_roughness_limiter/enabled=false
-environment/screen_space_reflection/roughness_quality=0
 limits/global_shader_variables/buffer_size=16384
 limits/opengl/max_renderable_elements=16384
+limits/opengl/max_renderable_lights=2
 limits/opengl/max_lights_per_object=2

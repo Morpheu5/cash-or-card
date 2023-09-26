@@ -874,6 +874,14 @@ msgstr "Robbery risk: %.1f %%"
 msgid "Totale: %s"
 msgstr "Amount: %s"
 
+#: game_scenes/shop.gd
+msgid "Al ladro!"
+msgstr "Thief!"
+
+#: game_scenes/shop.gd
+msgid "Un ladro selvaggio appare."
+msgstr "A wild thief appears."
+
 #, fuzzy
 #~| msgid "Costi contanti: %.2f"
 #~ msgid "Costi contante: %.2f"

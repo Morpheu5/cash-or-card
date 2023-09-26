@@ -635,3 +635,11 @@ msgstr ""
 #: game_scenes/shop.gd
 msgid "Totale: %s"
 msgstr ""
+
+#: game_scenes/shop.gd
+msgid "Al ladro!"
+msgstr ""
+
+#: game_scenes/shop.gd
+msgid "Un ladro selvaggio appare."
+msgstr ""

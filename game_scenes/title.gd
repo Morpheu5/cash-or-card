@@ -5,6 +5,9 @@ var shop_scene = preload("res://game_scenes/shop.tscn")
 var credits_scene = preload("res://game_scenes/credits.tscn")
 
 func _ready():
+	var date = Time.get_datetime_dict_from_system()
+	Globals.participant_id = "%02d%02d%02d%02d%02d%02d" % [date.year-2000, date.month, date.day, date.hour, date.minute, date.second ]
+	%ParticipantID.text = "%02d %02d %02d %02d %02d %02d" % [date.year-2000, date.month, date.day, date.hour, date.minute, date.second ]
 	pass
 
 func _on_start_button_pressed():

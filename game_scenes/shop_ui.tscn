@@ -82,22 +82,29 @@ theme_override_styles/separator = SubResource("StyleBoxFlat_0qo35")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="CustomerNameLabel" type="Label" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 auto_translate = false
 localize_numeral_system = false
+theme_override_font_sizes/font_size = 40
 text = "Name"
 
 [node name="AmountLabel" type="Label" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 auto_translate = false
+theme_override_font_sizes/font_size = 40
 text = "Amount"
 
-[node name="CustomerDebugger" type="Label" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="CustomerDescription" type="Label" parent="ShopUI/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/InfoPanel/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(492.999, 2.08165e-12)
 layout_mode = 2
+theme_override_font_sizes/font_size = 40
+autowrap_mode = 3
 
 [node name="StatsPanel" type="PanelContainer" parent="ShopUI/HBoxContainer"]
 custom_minimum_size = Vector2(100, 2.08165e-12)

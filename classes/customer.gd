@@ -33,12 +33,12 @@ func set_payment_method(val: String):
 	payment_method = val
 	return self
 
-func decrement_cash_preference():
-	set_prefers_cash(max(0, prefers_cash-1))
+func decrement_cash_preference(by = 1):
+	set_prefers_cash(max(0, prefers_cash - by))
 	return self
 
-func decrement_denial_tolerance():
-	set_denial_tolerance(max(0, denial_tolerance-1))
+func decrement_denial_tolerance(by = 1):
+	set_denial_tolerance(max(0, denial_tolerance - by))
 	return self
 
 func _to_string() -> String:

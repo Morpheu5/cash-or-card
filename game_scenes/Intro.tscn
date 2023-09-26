@@ -1,10 +1,30 @@
-[gd_scene load_steps=10 format=3 uid="uid://chsx0q21qsby3"]
+[gd_scene load_steps=20 format=3 uid="uid://chsx0q21qsby3"]
 
 [ext_resource type="Script" path="res://game_scenes/Intro.gd" id="1_ky6kw"]
 [ext_resource type="Texture2D" uid="uid://cfitb7k6y3vce" path="res://assets/faces/player.png" id="1_w1jvo"]
 [ext_resource type="Texture2D" uid="uid://cti8qwisdwyyg" path="res://assets/faces/bank.png" id="2_vn0qk"]
 [ext_resource type="AudioStream" uid="uid://c0od5g6jabj6r" path="res://assets/sfx/phone_ring.ogg" id="3_jfrnq"]
 [ext_resource type="AudioStream" uid="uid://wria2trwp0fk" path="res://assets/music/RoccoW_Welcome.ogg" id="5_hsofg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jbttn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_awwe6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o6ejk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jfpq6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_acy8q"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4146n"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_y0n66"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l1x11"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mr00l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ujf2w"]
 
 [sub_resource type="Animation" id="Animation_wiwbv"]
 length = 0.001
@@ -459,7 +479,7 @@ grow_vertical = 2
 theme_override_constants/margin_left = 60
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 60
-theme_override_constants/margin_bottom = 40
+theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Scene01"]
 layout_mode = 2
@@ -575,6 +595,11 @@ modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxEmpty_jbttn")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_awwe6")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_o6ejk")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_jfpq6")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_acy8q")
 text = "Continua »"
 
 [node name="Scene02" type="CenterContainer" parent="CanvasLayer"]
@@ -609,6 +634,11 @@ offset_bottom = 49.0
 grow_horizontal = 0
 size_flags_horizontal = 8
 size_flags_vertical = 8
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4146n")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_y0n66")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_l1x11")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_mr00l")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ujf2w")
 text = "×"
 
 [node name="CutscenePlayer" type="AnimationPlayer" parent="."]
