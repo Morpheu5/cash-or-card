@@ -378,7 +378,7 @@ func select_payment_method(c: Customer):
 func _log(what: Dictionary = {}):
 	var message = { "pid": Globals.participant_id, "timestamp": Time.get_datetime_string_from_system(), "customer": customer.data, "stats": stats }
 	message.merge(what)
-	print(JSON.stringify(message))
+	Logger.logger(message)
 
 var stats: Dictionary:
 	get:
