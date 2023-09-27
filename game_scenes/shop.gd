@@ -340,6 +340,13 @@ func get_fee(method: String, _amount: float):
 	var fee = p["low_fee"] if _amount < p["fee_threshold"] else p["high_fee"]
 	return fee
 
+func get_fees(_amount: float):
+	return {
+		"card": snapped(100 * get_fee("card", amount), 0.1),
+		"payup": snapped(100 * get_fee("payup", amount), 0.1),
+		"oddlypay": snapped(100 * get_fee("oddlypay", amount), 0.1),
+	}
+
 func handle_bank_run():
 	if randf() <= robbery_chance:
 		stolen_cash = cash
@@ -369,6 +376,20 @@ func select_payment_method(c: Customer):
 		c.set_payment_method("card")
 
 func _log(what: Dictionary = {}):
-	var message = { "pid": Globals.participant_id, "timestamp": Time.get_datetime_string_from_system() }
+	var message = { "pid": Globals.participant_id, "timestamp": Time.get_datetime_string_from_system(), "customer": customer.data, "stats": stats }
 	message.merge(what)
 	print(JSON.stringify(message))
+
+var stats: Dictionary:
+	get:
+		return {
+			"amount": amount,
+			"bank": bank,
+			"cash": cash,
+			"electronic_fee_loss": electronic_fee_loss,
+			"cash_fee_loss": cash_fee_loss,
+			"insurance_premium": insurance_premium,
+			"insurance_excess": insurance_excess,
+			"income_lost": income_lost,
+			"robbery_chance": snapped(robbery_chance * 100, 0.1),
+		}

@@ -1,5 +1,5 @@
 ~ main
-do emit("log_request", { "dialogue_title": "main", "event_type": "game", "event": "customer_approach", "customer_payment_method": customer.payment_method, "customer", customer })
+do emit("log_request", { "dialogue_title": "main", "event_type": "game", "event": "customer_approach" })
 {{customer.name}} si avvicina alla cassa. [[I suoi acquisti ammontano a|Gli articoli che ha con sé costano un totale di]] {{amount_str}} soldi. [next=auto] [ID:t5098d4b35f]
 if (customer.payment_method == "cash")
 	% {{customer.name}}: Vorrei pagare in contanti [ID:t5eb700c9b4]
@@ -9,7 +9,7 @@ else
 	% {{customer.name}}: Posso pagare con la carta? [ID:tbf22633903]
 endif
 - [[Va bene|Ok|D'accordo|Ottimo]] [ID:tf9e13ed100]
-	do emit("log_request", { "dialogue_title": "main", "event_type": "player", "event": "accept_payment_method", "customer_payment_method", customer.payment_method })
+	do emit("log_request", { "dialogue_title": "main", "event_type": "player", "event": "accept_payment_method" })
 	if customer.payment_method == "cash"
 		do handle_payment("cash")
 		do loop()
@@ -18,10 +18,10 @@ endif
 		=> handle_card_payment
 	endif
 - [[Preferisco in contanti|Ho il POS rotto|No, mi costa troppo di commissioni|Il contante non costa niente|Avrebbe dovuto dirmelo prima!]] [ID:tc4ce3005b2] [if customer.payment_method == "card"]
-	do emit("log_request", { "dialogue_title": "main", "event_type": "player", "event": "propose_cash_payment", "customer_payment_method", customer.payment_method })
+	do emit("log_request", { "dialogue_title": "main", "event_type": "player", "event": "propose_cash_payment" })
 	=> propose_cash_payment
 - [[O anche con la carta|Ho anche il POS, se vuole|Preferirei con la carta, se può|Con la carta mi farebbe un favore]] [ID:tee9b4dc95b] [if customer.payment_method == "cash"]
-	do emit("log_request", { "dialogue_title": "main", "event_type": "player", "event": "propose_card_payment", "customer_payment_method", customer.payment_method })
+	do emit("log_request", { "dialogue_title": "main", "event_type": "player", "event": "propose_card_payment" })
 	=> propose_card_payment
 => END
 
@@ -30,6 +30,7 @@ endif
 # do emit("customer_debug")
 if customer.must_use_cash and customer.denial_tolerance > 0
 	set customer_has_explained_conspiracy = true
+	do emit("log_request", { "dialogue_title": "propose_card_payment", "event_type": "game", "event": "conspiracy_theory" })
 	% {{customer.name}}: Assolutamente no, il denaro elettronico è un modo per renderci schiavi dei sistemi finanziari globali! [ID:t7b8b53d2a2]
 	% {{customer.name}}: Non sia ingenuo, ci vogliono controllare e negare la libertà di scelta! [ID:ta90090e2ee]
 	% {{customer.name}}: Bravo, così ci toglieranno il contante e saremo dipendenti dalle banche! [ID:t1926e65357]
@@ -44,14 +45,17 @@ if customer.must_use_cash and customer.denial_tolerance > 0
 	% {{customer.name}}: I pagamenti elettronici rendono le persone dipendenti da un sistema tecnologico che potrebbe essere facilmente sottoposto a controllo o restrizioni da parte delle autorità. [ID:ta82715f786]
 	% {{customer.name}}: I contanti sono l'unica forma di denaro a corso legale, mentre i pagamenti elettronici sono soggetti a regolamenti e limitazioni imposte da terze parti che possono influenzare negativamente la nostra libertà finanziaria. [ID:t72470640eb]
 	- [[Ha ragione|Giusto|Ah, sì]], meglio usare i contanti [ID:t0548af9398]
+		do emit("log_request", { "dialogue_title": "propose_card_payment", "event_type": "player", "event": "accept_cash_payment" })
 		do handle_payment("cash")
 		do loop()
 		=> END
 	- [[Non è proprio verissimo…|Le cose non stanno proprio così, in realtà…|A me non risulta…]] comunque [[continuo a preferire|a me fa più comodo]] la carta. [ID:t8da799ac0e]
+		do emit("log_request", { "dialogue_title": "propose_card_payment", "event_type": "player", "event": "push_back" })
 		do customer.decrement_cash_preference()
 		do customer.decrement_denial_tolerance()
 		=> propose_card_payment
 elif customer.must_use_cash and customer.denial_tolerance == 0
+	do emit("log_request", { "dialogue_title": "propose_card_payment", "event_type": "game", "event": "income_loss", "lost_income": amount })
 	% {{customer.name}}: Vedo che è saldo nel suo supporto al NWO. Dirò a tutti di evitare questo negozio. Si tenga la sua merce! [ID:tfe7559e89f]
 	% {{customer.name}}: Incredibile! L'hanno plagiata proprio bene, eh? Beh, ci sarà qualcun altro da cui posso rifornirmi… [ID:t578cff549d]
 	% {{customer.name}}: Se non posso pagare in contanti, cercherò un altro negozio! [ID:t1bd75a985d]
@@ -67,6 +71,7 @@ elif customer.must_use_cash and customer.denial_tolerance == 0
 	do loop()
 	=> END
 elif customer.prefers_cash > 0 and customer.denial_tolerance > 0
+	do emit("log_request", { "dialogue_title": "propose_card_payment", "event_type": "game", "event": "push_back" })
 	% {{customer.name}}: Ma non ci sono commissioni altissime? [ID:t00ba9114c7]
 	% {{customer.name}}: Eh, ma così risparmiamo sulle commissioni! [ID:t4acdcd40e5]
 	% {{customer.name}}: Ma così regaliamo soldi alle banche… [ID:tff18300c0a]
@@ -75,18 +80,22 @@ elif customer.prefers_cash > 0 and customer.denial_tolerance > 0
 	% {{customer.name}}: Ma se non usiamo il contante finché possiamo, ce lo toglieranno del tutto! [ID:t5c1df5b256]
 	% {{customer.name}}: Ma lei non preferisce vedere dei soldi in cassa che un numero in banca? [ID:t4484e7e82d]
 	- [[Ha ragione|Giusto|Ah, sì]], meglio usare i contanti [ID:t7ded11d970]
+		do emit("log_request", { "dialogue_title": "propose_card_payment", "event_type": "player", "event": "accept_cash_payment" })
 		do handle_payment("cash")
 		do loop()
 		=> END
 	- No, e poi [[pagare con|usare]] la carta [[conviene|ha i suoi vantaggi]] [ID:t35542014e3]
+		do emit("log_request", { "dialogue_title": "propose_card_payment", "event_type": "player", "event": "push_back" })
 		do customer.decrement_cash_preference()
 		do customer.decrement_denial_tolerance()
 		=> propose_card_payment
 elif customer.prefers_cash == 0 and customer.denial_tolerance > 0
+	do emit("log_request", { "dialogue_title": "propose_card_payment", "event_type": "game", "event": "accept_card_payment" })
 	% {{customer.name}}: Va bene, per questa volta pago con la carta… [ID:t4da9ee2189]
 	% {{customer.name}}: Ok, allora pago con la carta… [ID:t65990df33b]
 	=> handle_card_payment
 elif customer.denial_tolerance == 0
+	do emit("log_request", { "dialogue_title": "propose_card_payment", "event_type": "game", "event": "income_loss", "lost_income": amount })
 	{{customer.name}}: Continuo a preferire i contanti, quindi le lascio la sua merce e vado altrove. [ID:tfc11c85622]
 	do handle_income_loss()
 	do loop()
@@ -100,6 +109,7 @@ endif
 
 ~ propose_cash_payment
 if customer.denial_tolerance > 0
+	do emit("log_request", { "dialogue_title": "propose_cash_payment", "event_type": "game", "event": "push_back" })
 	% {{customer.name}}: Preferisco la carta, così evito di portarmi in giro un sacco di contanti, sa com'è… la sicurezza! [ID:tde3a6abd20]
 	% {{customer.name}}: Eh, ma con la carta tengo meglio traccia delle spese. [ID:t85175566a4]
 	% {{customer.name}}: Ma si figuri, con la carta non devo cercare uno sportello ogni volta che devo pagare. [ID:t64d11b3527]
@@ -108,13 +118,18 @@ if customer.denial_tolerance > 0
 	% {{customer.name}}: Con la carta so subito quanto ho speso e faccio prima a fare i conti a fine giornata! [ID:t2758bcf973]
 	% {{customer.name}}: La carta mi dà punti o cashback, così ci guadagno io e lei non perde il cliente, no? [ID:td70e442e5e]
 	% {{customer.name}}: Con la carta pago veloce, senza stare lì a contar soldi o fare la danza delle monete. [ID:t49de81b84a]
-	- [[Giusto|Bene|Ottimo|Perfetto]], [[vada per la carta|eccole il terminale|pronti con la carta]]. [ID:t8c6283623f] => handle_card_payment
+	- [[Giusto|Bene|Ottimo|Perfetto]], [[vada per la carta|eccole il terminale|pronti con la carta]]. [ID:t8c6283623f]
+		do emit("log_request", { "dialogue_title": "propose_cash_payment", "event_type": "player", "event": "accept_card_payment" })
+		=> handle_card_payment
 	- Continuo a preferire i contanti [ID:t5ae48e245e]
+		do emit("log_request", { "dialogue_title": "propose_cash_payment", "event_type": "player", "event": "push_back" })
 		do customer.decrement_denial_tolerance()
 		=> propose_cash_payment
 	- I contanti sono l'unica forma di pagamento in corso legale [ID:t43b787e073]
+		do emit("log_request", { "dialogue_title": "propose_cash_payment", "event_type": "player", "event": "push_back", "extra": ["legal_tender"] })
 		=> legal_tender
 elif customer.denial_tolerance == 0 and customer.initial_denial_tolerance >= 3
+	do emit("log_request", { "dialogue_title": "propose_card_payment", "event_type": "game", "event": "income_loss", "lost_income": amount })
 	% {{customer.name}}: E allora niente, me ne andrò da un'altra parte, magari trovo qualcuno che non evade… [ID:tb7dcd1a020]
 	% {{customer.name}}: [[Ma guarda te|Incredibile]], accettare i pagamenti elettronici sarebbe obbligatorio ma c'è ancora gente come lei che pensa di essere al di sopra della legge. Venda questa roba a qualcun altro. [ID:tcf02cb83a5]
 	% {{customer.name}}: [[Eh|Guarda qua]], uno prova a spingere per cambiare le cose in meglio ma c'è sempre qualcuno che rema contro. Non le spiacerà trovare un altro cliente a cui vendere questa merce. [ID:t8ccb038c4e]
@@ -123,6 +138,7 @@ elif customer.denial_tolerance == 0 and customer.initial_denial_tolerance >= 3
 	do loop()
 	=> END
 elif customer.denial_tolerance == 0 and customer.initial_denial_tolerance < 3
+	do emit("log_request", { "dialogue_title": "propose_card_payment", "event_type": "game", "event": "accept_cash_payment" })
 	% {{customer.name}}: Per questa volta pago in contanti… ma spargerò la voce. [ID:t9af48f8f71]
 	% {{customer.name}}: OK, stavolta passi ma mi ricorderò di andare in cerca da qualche altra parte, la prossima volta. [ID:ta76fceda0b]
 	% {{customer.name}}: Va bene, però il suo collega di là della strada mi hanno detto che non si fa problemi con le carte… [ID:t488e3fa8a8]
@@ -135,8 +151,11 @@ endif
 
 ~ legal_tender
 % {{customer.name}}: Certo, ma resta l'obbligo di accettare i pagamenti elettronici [ID:t7756872929]
-- [[Giusto|Bene|Ottimo|Perfetto]], [[vada per la carta|eccole il terminale|pronti con la carta]]. [ID:t142f3d3cf6] => handle_card_payment
+- [[Giusto|Bene|Ottimo|Perfetto]], [[vada per la carta|eccole il terminale|pronti con la carta]]. [ID:t142f3d3cf6]
+	do emit("log_request", { "dialogue_title": "legal_tender", "event_type": "player", "event": "accept_card_payment" })
+	=> handle_card_payment
 - Continuo a preferire i contanti [ID:t64b774becf]
+	do emit("log_request", { "dialogue_title": "legal_tender", "event_type": "player", "event": "push_back" })
 	do customer.decrement_denial_tolerance()
 	=> propose_cash_payment
 => END
@@ -145,14 +164,17 @@ endif
 ~ handle_card_payment
 Scegli un metodo di pagamento elettronico: [ID:ta2bd7bbd9e]
 - POS (commissione\: {{100 * get_fee("card", amount)}}%) [ID:tc2b37b1d9d]
+	do emit("log_request", { "dialogue_title": "handle_card_payment", "event_type": "player", "event": "electronic_payment", "method": "card", "fees": get_fees() })
 	do handle_payment("card")
 	do loop()
 	=> END
 - PayUp (commissione\: {{100 * get_fee("payup", amount)}}%) [ID:t4ed730b069]
+	do emit("log_request", { "dialogue_title": "handle_card_payment", "event_type": "player", "event": "electronic_payment", "method": "payup", "fees": get_fees() })
 	do handle_payment("payup")
 	do loop()
 	=> END
 - OddlyPay (commissione\: {{100 * get_fee("oddlypay", amount)}}%) [ID:t53a0472898]
+	do emit("log_request", { "dialogue_title": "handle_card_payment", "event_type": "player", "event": "electronic_payment", "method": "oddlypay", "fees": get_fees() })
 	do handle_payment("oddlypay")
 	do loop()
 	=> END
@@ -162,10 +184,12 @@ Scegli un metodo di pagamento elettronico: [ID:ta2bd7bbd9e]
 ~ ask_bank_run
 A fine giornata hai {{bank}} soldi in banca e {{cash}} soldi in contanti. [ID:t97b8bd45ca]
 - Porta i contanti in banca. [ID:t0bc162474e]
+	do emit("log_request", { "dialogue_title": "ask_bank_run", "event_type": "player", "event": "do_bank_run" })
 	do radio_off()
 	do handle_bank_run()
 	=> END
 - Torna a casa. [ID:t1dfcf7f15f]
+	do emit("log_request", { "dialogue_title": "ask_bank_run", "event_type": "player", "event": "go_home" })
 	do radio_off()
 	do run()
 	=> END
@@ -177,6 +201,7 @@ A fine giornata hai {{bank}} soldi in banca e {{cash}} soldi in contanti. [ID:t9
 % Bene, e ora spritz! [ID:tec23789721]
 % Certo che è stato un po' un rischio, con tutto quel contante, ma è andata bene. [ID:t6cf379d95d]
 % Domani è un altro giorno! [ID:t0bf22e3e6f]
+do emit("log_request", { "dialogue_title": "end_bank_run", "event_type": "log", "event": "end_bank_run" })
 do run()
 => END
 
@@ -185,13 +210,15 @@ do run()
 % Ladro: O la borsa o la vita! [ID:t0d8d7acb60]
 % Ladro: Svuota il portafogli! [ID:t28fab67c1f]
 % Ladro: Svuota le tasche! [ID:tcc089a8dbd]
+do emit("log_request", { "dialogue_title": "street_robbery", "event_type": "game", "event": "robbery", "location": "street" })
 set cash = 0.0
-
 Sei stato derubato mentre andavi in banca! La polizia è arrivata troppo tardi per fermare il ladro e hai perso {{stolen_cash}} soldi! [ID:t8873a801e3]
 - Chiama l'assicurazione (recuperi {{potential_loss}} soldi, il premio salirà) [ID:t47f1d93a36]
+	do emit("log_request", { "dialogue_title": "street_robbery", "event_type": "player", "event": "make_insurance_claim", "loss": potential_loss })
 	do handle_insurance_claim(cash)
 	=> insurance_claim_end
 - Torna a casa (perdi {{stolen_cash}} soldi) [ID:tdad83184fe]
+	do emit("log_request", { "dialogue_title": "street_robbery", "event_type": "player", "event": "go_home", "loss": stolen_cash })
 	do run()
 	=> END
 
@@ -200,19 +227,22 @@ Sei stato derubato mentre andavi in banca! La polizia è arrivata troppo tardi p
 % Ladro: O la borsa o la vita! [ID:t99d3129d55]
 % Ladro: Svuota il portafogli! [ID:tb4e434bc4a]
 % Ladro: Svuota le tasche! [ID:ta63e78c003]
+do emit("log_request", { "dialogue_title": "shop_robbery", "event_type": "game", "event": "robbery", "location": "shop" })
 set cash = 0.0
-
 Sei stato rapinato in negozio! La polizia è arrivata troppo tardi per fermare il ladro e hai perso {{stolen_cash}} soldi! [ID:t29909e55c2]
 - Chiama l'assicurazione (recuperi {{potential_loss}} soldi, il premio salirà) [ID:tc20800c867]
+	do emit("log_request", { "dialogue_title": "shop_robbery", "event_type": "player", "event": "make_insurance_claim", "loss": potential_loss })
 	do handle_insurance_claim(cash)
 	=> insurance_claim_end
 - Chiudi e torna a casa (perdi {{stolen_cash}} soldi) [ID:t8a8611b98d]
+	do emit("log_request", { "dialogue_title": "shop_robbery", "event_type": "player", "event": "go_home", "loss": stolen_cash })
 	do run()
 	=> END
 
 
 ~ insurance_claim_end
 L'assicurazione ti restituisce {{insurance_refund}} soldi. Il nuovo premio è {{insurance_premium}} con una franchigia di {{insurance_excess}}. [ID:t24bf932818]
+do emit("log_request", { "dialogue_title": "insurance_claim_end", "event_type": "log", "event": "insurance_claim_end", "refund": insurance_refund, "new_premium": insurance_premium, "new_excess": insurance_excess })
 do run()
 => END
 

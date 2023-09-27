@@ -56,3 +56,13 @@ func _to_string() -> String:
 			initial_denial_tolerance,
 			payment_method,
 			]
+
+var data: Dictionary:
+	get:
+		return {
+			"name": name,
+			"prefers_cash": prefers_cash,
+			"denial_tolerance": denial_tolerance,
+			"must_use_cash": must_use_cash,
+			"payment_method": payment_method,
+		}
