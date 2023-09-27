@@ -120,7 +120,7 @@ msgstr ""
 
 #: assets/main.dialogue
 msgctxt "tc4ce3005b2"
-msgid "[[Preferisco in contanti|Ho il POS rotto|No, mi costa troppo di commissioni|Il contante non costa niente]]"
+msgid "[[Preferisco in contanti|Ho il POS rotto|No, mi costa troppo di commissioni|Il contante non costa niente|Avrebbe dovuto dirmelo prima!]]"
 msgstr ""
 
 #: assets/main.dialogue
@@ -555,7 +555,7 @@ msgstr ""
 
 #: assets/main.dialogue
 msgctxt "t24bf932818"
-msgid "L'assicurazione ti restituisce {{insurance_refund}}. Il nuovo premio è {{insurance_premium}} con una franchigia di {{insurance_excess}}."
+msgid "L'assicurazione ti restituisce {{insurance_refund}} soldi. Il nuovo premio è {{insurance_premium}} con una franchigia di {{insurance_excess}}."
 msgstr ""
 
 #: game_scenes/credits.tscn
@@ -630,6 +630,34 @@ msgstr ""
 #: game_scenes/shop.gd
 #: game_scenes/shop_ui.gd
 msgid "Rischio rapina: %.1f %%"
+msgstr ""
+
+#: game_scenes/shop.gd
+msgid "Venera i contanti. "
+msgstr ""
+
+#: game_scenes/shop.gd
+msgid "Non ha preferenze di pagamento. "
+msgstr ""
+
+#: game_scenes/shop.gd
+msgid "Apprezza i contanti. "
+msgstr ""
+
+#: game_scenes/shop.gd
+msgid "Ama i contanti. "
+msgstr ""
+
+#: game_scenes/shop.gd
+msgid "Ha pochissima pazienza. "
+msgstr ""
+
+#: game_scenes/shop.gd
+msgid "È ragionevole. "
+msgstr ""
+
+#: game_scenes/shop.gd
+msgid "È estremamente paziente. "
 msgstr ""
 
 #: game_scenes/shop.gd

@@ -129,10 +129,10 @@ msgstr "[[Alright|OK|Agreed|Excellent]]"
 msgctxt "tc4ce3005b2"
 msgid ""
 "[[Preferisco in contanti|Ho il POS rotto|No, mi costa troppo di commissioni|"
-"Il contante non costa niente]]"
+"Il contante non costa niente|Avrebbe dovuto dirmelo prima!]]"
 msgstr ""
 "[[I prefer cash|The machine is broken|No, it costs me too much in fees|Cash "
-"costs nothing]]"
+"costs nothing|You should have told me before I punched it!]]"
 
 #: assets/main.dialogue
 msgctxt "tee9b4dc95b"
@@ -757,10 +757,10 @@ msgstr "Close up and go home (you lose {{stolen_cash}} money)"
 #: assets/main.dialogue
 msgctxt "t24bf932818"
 msgid ""
-"L'assicurazione ti restituisce {{insurance_refund}}. Il nuovo premio è "
+"L'assicurazione ti restituisce {{insurance_refund}} soldi. Il nuovo premio è "
 "{{insurance_premium}} con una franchigia di {{insurance_excess}}."
 msgstr ""
-"The insurance gives you a {{insurance_refund}}. The new premium is "
+"The insurance gives you a {{insurance_refund}} moneys. The new premium is "
 "{{insurance_premium}} with an excess of {{insurance_excess}}."
 
 #: game_scenes/credits.tscn
@@ -869,6 +869,34 @@ msgstr "Lost income: %.2f"
 #: game_scenes/shop.gd game_scenes/shop_ui.gd
 msgid "Rischio rapina: %.1f %%"
 msgstr "Robbery risk: %.1f %%"
+
+#: game_scenes/shop.gd
+msgid "Venera i contanti. "
+msgstr "Worships cash. "
+
+#: game_scenes/shop.gd
+msgid "Non ha preferenze di pagamento. "
+msgstr "Doesn't have a preference. "
+
+#: game_scenes/shop.gd
+msgid "Apprezza i contanti. "
+msgstr "Likes cash. "
+
+#: game_scenes/shop.gd
+msgid "Ama i contanti. "
+msgstr "Loves cash. "
+
+#: game_scenes/shop.gd
+msgid "Ha pochissima pazienza. "
+msgstr "Very little patience. "
+
+#: game_scenes/shop.gd
+msgid "È ragionevole. "
+msgstr "Reasonable. "
+
+#: game_scenes/shop.gd
+msgid "È estremamente paziente. "
+msgstr "Extremely patiente. "
 
 #: game_scenes/shop.gd
 msgid "Totale: %s"
