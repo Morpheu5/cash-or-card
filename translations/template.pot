@@ -8,6 +8,9 @@
 # res://game_scenes/shop_floor.tscn
 # res://game_scenes/shop.gd
 # res://game_scenes/shop_ui.gd
+# res://game_scenes/Privacy.tscn
+# res://game_scenes/GameOver.gd
+# res://game_scenes/GameOver.tscn
 #
 # FIRST AUTHOR < EMAIL @ADDRESS>, YEAR.
 #
@@ -24,7 +27,7 @@ msgid "Pronto?"
 msgstr ""
 
 #: game_scenes/Intro.tscn
-msgid "Buongiorno, la chiamo dalla sua banca!"
+msgid "Buongiorno, sono il suo fornitore preferito!"
 msgstr ""
 
 #: game_scenes/Intro.tscn
@@ -32,7 +35,7 @@ msgid "Buongiorno, mi dica…"
 msgstr ""
 
 #: game_scenes/Intro.tscn
-msgid "La chiamo per ricordarle l'ultima rata per rimborsare il prestito di 20.000 soldi."
+msgid "La chiamo per ricordarle di saldare la fattura di 10.000 soldi."
 msgstr ""
 
 #: game_scenes/Intro.tscn
@@ -71,6 +74,10 @@ msgstr ""
 
 #: game_scenes/title.tscn
 msgid "Ingrandisci"
+msgstr ""
+
+#: game_scenes/title.tscn
+msgid "Privacy"
 msgstr ""
 
 #: assets/main.dialogue
@@ -581,6 +588,7 @@ msgid ""
 msgstr ""
 
 #: game_scenes/credits.tscn
+#: game_scenes/Privacy.tscn
 msgid "« indietro"
 msgstr ""
 
@@ -670,4 +678,45 @@ msgstr ""
 
 #: game_scenes/shop.gd
 msgid "Un ladro selvaggio appare."
+msgstr ""
+
+#: game_scenes/Privacy.tscn
+msgid ""
+"Questo gioco raccoglie alcune informazioni [bgcolor="#541122"]ANONIME[/bgcolor] sullo svolgimento della partita. Ma [wave]niente paura[/wave], perché\n"
+"\n"
+"[center][bgcolor="#541122"][font_size=48]nessuna informazione su di te viene registrata![/font_size][/bgcolor][/center]\n"
+"\n"
+"Se ti è stato chiesto di rispondere ad un questionario, ricordati di segnarti questo numero: [bgcolor="#541122"]%s[/bgcolor]."
+msgstr ""
+
+#: game_scenes/GameOver.gd
+msgid ""
+"\n"
+"[center]Complimenti! Con %.2f soldi riesci a saldare il debito e pagare la rata dell'assicurazione!\n"
+"[/center]\n"
+""
+msgstr ""
+
+#: game_scenes/GameOver.gd
+msgid ""
+"\n"
+"[center]Oh no! Hai un totale di %.2f soldi in banca ma la rata dell'assicurazione ti ha impedito di saldare il debito!\n"
+"[/center]\n"
+""
+msgstr ""
+
+#: game_scenes/GameOver.gd
+msgid "Vittoria!"
+msgstr ""
+
+#: game_scenes/GameOver.gd
+msgid "Game Over!"
+msgstr ""
+
+#: game_scenes/GameOver.tscn
+msgid "Fai un breve sondaggio"
+msgstr ""
+
+#: game_scenes/GameOver.tscn
+msgid "Torna all'inizio"
 msgstr ""

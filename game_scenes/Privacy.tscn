@@ -1,0 +1,49 @@
+[gd_scene load_steps=2 format=3 uid="uid://cn520beertr5j"]
+
+[ext_resource type="Script" path="res://game_scenes/Privacy.gd" id="1_o41un"]
+
+[node name="Privacy" type="Node2D"]
+script = ExtResource("1_o41un")
+
+[node name="Canvas" type="CanvasLayer" parent="."]
+
+[node name="BackgroundColor" type="ColorRect" parent="Canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Canvas"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Canvas/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 40
+bbcode_enabled = true
+text = "Questo gioco raccoglie alcune informazioni [bgcolor=\"#541122\"]ANONIME[/bgcolor] sullo svolgimento della partita. Ma [wave]niente paura[/wave], perché
+
+[center][bgcolor=\"#541122\"][font_size=48]nessuna informazione su di te viene registrata![/font_size][/bgcolor][/center]
+
+Se ti è stato chiesto di rispondere ad un questionario, ricordati di segnarti questo numero: [bgcolor=\"#541122\"]%s[/bgcolor]."
+meta_underlined = false
+
+[node name="BackButton" type="Button" parent="Canvas"]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 147.0
+offset_bottom = 69.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "« indietro"
+
+[connection signal="pressed" from="Canvas/BackButton" to="." method="_on_back_button_pressed"]

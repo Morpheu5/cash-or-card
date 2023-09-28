@@ -3,6 +3,7 @@ extends Node2D
 var intro_scene = preload("res://game_scenes/Intro.tscn")
 var shop_scene = preload("res://game_scenes/shop.tscn")
 var credits_scene = preload("res://game_scenes/credits.tscn")
+var privacy_scene = preload("res://game_scenes/Privacy.tscn")
 
 func _ready():
 	var date = Time.get_datetime_dict_from_system()
@@ -33,7 +34,14 @@ func set_locale(locale):
 	TranslationServer.set_locale(locale)
 
 
-func _on_button_pressed():
+func _on_fs_button_pressed():
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-	DisplayServer.screen_set_orientation(DisplayServer.SCREEN_SENSOR_LANDSCAPE)
 	pass # Replace with function body.
+
+
+
+func _on_privacy_button_pressed():
+	var s = privacy_scene.instantiate()
+	s.modulate = Color(1,1,1,0)
+	add_child(s)
+	await create_tween().tween_property(s, 'modulate', Color(1,1,1,1), 1).finished

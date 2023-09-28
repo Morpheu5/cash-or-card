@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://game_scenes/Intro.gd" id="1_ky6kw"]
 [ext_resource type="Texture2D" uid="uid://cfitb7k6y3vce" path="res://assets/faces/player.png" id="1_w1jvo"]
-[ext_resource type="Texture2D" uid="uid://cti8qwisdwyyg" path="res://assets/faces/bank.png" id="2_vn0qk"]
+[ext_resource type="Texture2D" uid="uid://thhvafrqvcod" path="res://assets/faces/Creditor.png" id="3_h8iim"]
 [ext_resource type="AudioStream" uid="uid://c0od5g6jabj6r" path="res://assets/sfx/phone_ring.ogg" id="3_jfrnq"]
 [ext_resource type="AudioStream" uid="uid://wria2trwp0fk" path="res://assets/music/RoccoW_Welcome.ogg" id="5_hsofg"]
 
@@ -515,7 +515,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 48
-text = "Buongiorno, la chiamo dalla sua banca!"
+text = "Buongiorno, sono il suo fornitore preferito!"
 autowrap_mode = 2
 visible_characters = 0
 visible_ratio = 0.0
@@ -524,7 +524,7 @@ visible_ratio = 0.0
 custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_vertical = 0
-texture = ExtResource("2_vn0qk")
+texture = ExtResource("3_h8iim")
 
 [node name="Line03" type="HBoxContainer" parent="CanvasLayer/Scene01/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)
@@ -557,7 +557,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 48
-text = "La chiamo per ricordarle l'ultima rata per rimborsare il prestito di 20.000 soldi."
+text = "La chiamo per ricordarle di saldare la fattura di 10.000 soldi."
 autowrap_mode = 2
 visible_characters = 0
 visible_ratio = 0.0
@@ -566,7 +566,7 @@ visible_ratio = 0.0
 custom_minimum_size = Vector2(72, 72)
 layout_mode = 2
 size_flags_vertical = 0
-texture = ExtResource("2_vn0qk")
+texture = ExtResource("3_h8iim")
 
 [node name="Line05" type="HBoxContainer" parent="CanvasLayer/Scene01/VBoxContainer"]
 modulate = Color(1, 1, 1, 0)

@@ -109,9 +109,18 @@ layout_mode = 2
 theme = ExtResource("4_anlqf")
 text = "Crediti"
 
-[node name="Button" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
+
+[node name="FSButton" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Ingrandisci"
+
+[node name="PrivacyButton" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Privacy"
 
 [node name="ParticipantID" type="Label" parent="CanvasLayer/MarginContainer"]
 unique_name_in_owner = true
@@ -125,4 +134,5 @@ vertical_alignment = 1
 [connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/IT" to="." method="set_locale" binds= ["it_IT"]]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer/EN" to="." method="set_locale" binds= ["en_GB"]]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer2/FSButton" to="." method="_on_fs_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/HBoxContainer2/PrivacyButton" to="." method="_on_privacy_button_pressed"]

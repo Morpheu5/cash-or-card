@@ -30,3 +30,9 @@ var payment_methods = {
 	  "high_fee": snapped(randf_range(0.015, 0.02), 0.001),
 	},
 }
+
+const victory_threshold = 10000
+var final_money = 0.0
+var bank_money = 0.0
+var insurance_premium = 0.0
+var victory = false

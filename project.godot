@@ -70,14 +70,17 @@ ui_select={
 [internationalization]
 
 locale/translations=PackedStringArray("res://translations/en.mo", "res://translations/en.po")
-locale/translations_pot_files=PackedStringArray("res://game_scenes/Intro.tscn", "res://game_scenes/title.tscn", "res://assets/main.dialogue", "res://game_scenes/credits.tscn", "res://game_scenes/day_card.tscn", "res://game_scenes/shop.tscn", "res://game_scenes/shop_floor.tscn", "res://game_scenes/shop.gd", "res://game_scenes/shop_ui.gd")
-locale/test="it"
+locale/translations_pot_files=PackedStringArray("res://game_scenes/Intro.tscn", "res://game_scenes/title.tscn", "res://assets/main.dialogue", "res://game_scenes/credits.tscn", "res://game_scenes/day_card.tscn", "res://game_scenes/shop.tscn", "res://game_scenes/shop_floor.tscn", "res://game_scenes/shop.gd", "res://game_scenes/shop_ui.gd", "res://game_scenes/Privacy.tscn", "res://game_scenes/GameOver.gd", "res://game_scenes/GameOver.tscn")
+locale/test="it_IT"
 locale/fallback="it"
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 textures/vram_compression/import_s3tc_bptc=true
 textures/vram_compression/import_etc2_astc=true
+textures/decals/filter=0
+textures/light_projectors/filter=0
 limits/global_shader_variables/buffer_size=16384
 limits/opengl/max_renderable_elements=16384
 limits/opengl/max_renderable_lights=2

@@ -2,6 +2,7 @@ extends BaseDialogueTestScene
 
 const Balloon = preload("res://game_scenes/balloon/balloon.tscn")
 const Walker = preload("res://game_scenes/walker.tscn")
+const game_over_scene = preload("res://game_scenes/GameOver.tscn")
 
 @onready var Globals = get_node("/root/Globals")
 @onready var main_dialog: DialogueResource = preload("res://assets/main.dialogue")
@@ -35,7 +36,7 @@ var customer: Customer = null
 var electronic_offered = false
 var customer_has_explained_conspiracy = false
 
-var bank = 18000.0:
+var bank = 0.0:
 	set(value):
 		bank_changed.emit(value)
 		bank = value
@@ -86,7 +87,7 @@ var day = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	bank = 18000.0
+	bank = 8000.0
 	cash = 0.0
 	insurance_premium = randi_range(100, 200)
 	insurance_excess = randi_range(50, 100)
@@ -150,7 +151,15 @@ func radio_on():
 	create_tween().tween_property($AudioStreamPlayer, 'volume_db', -12, 0.1)
 	
 func run():
-	await initialize_day()
+	print("Day: ", day)
+	if day < 7:
+		await initialize_day()
+	else:
+		await lights_out()
+		Globals.bank_money = bank
+		Globals.insurance_premium = insurance_premium
+		Globals.final_money = bank - insurance_premium
+		get_tree().change_scene_to_packed(game_over_scene)
 
 func initialize_day():
 	# Emergency curtain
@@ -212,7 +221,6 @@ func start_dialogue(res: DialogueResource, chap: String):
 	add_child(balloon)
 	balloon.start(res, chap)
 	return balloon
-
 
 func show_info_panel():
 	await create_tween().tween_property($HUD/%InfoPanel, 'modulate', Color(1, 1, 1, 1), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT).finished
@@ -313,9 +321,7 @@ func shop_robbery():
 	start_dialogue(main_dialog, "shop_robbery")
 	customers = []
 
-
 func end_of_day():
-	await create_tween().tween_property($HUD/%InfoPanel, 'modulate', Color(1, 1, 1, 0), 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT).finished
 	if randf() <= robbery_chance and day > 2:
 		shop_robbery()
 	elif cash > 0.0:
@@ -376,7 +382,7 @@ func select_payment_method(c: Customer):
 		c.set_payment_method("card")
 
 func _log(what: Dictionary = {}):
-	var message = { "pid": Globals.participant_id, "timestamp": Time.get_datetime_string_from_system(), "customer": customer.data, "stats": stats }
+	var message = { "pid": Globals.participant_id, "timestamp": Time.get_datetime_string_from_system(), "customer": customer.data, "status": stats }
 	message.merge(what)
 	Logger.logger(message)
 
