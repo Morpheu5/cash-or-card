@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://8lyp1gprpln4"]
+[gd_scene load_steps=6 format=3 uid="uid://8lyp1gprpln4"]
 
 [ext_resource type="Script" path="res://game_scenes/balloon/balloon.gd" id="1_bf5nr"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_h1no1"]
+[ext_resource type="AudioStream" uid="uid://cdlqaqx42ju4e" path="res://assets/sfx/talk.ogg" id="3_tpida"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5d24i"]
 content_margin_left = 40.0
@@ -70,5 +71,10 @@ shortcut_keys_enabled = false
 meta_underlined = false
 hint_underlined = false
 
+[node name="TalkPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_tpida")
+volume_db = -18.0
+
 [connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
 [connection signal="resized" from="Balloon/Margin" to="." method="_on_margin_resized"]
+[connection signal="spoke" from="Balloon/Margin/VBox/DialogueLabel" to="." method="_on_dialogue_label_spoke"]

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bq8cdsnxpscqs"]
+[gd_scene load_steps=5 format=3 uid="uid://bq8cdsnxpscqs"]
 
 [ext_resource type="Script" path="res://game_scenes/shop.gd" id="1_edlot"]
 [ext_resource type="PackedScene" uid="uid://cpwmax3kf4sya" path="res://game_scenes/shop_ui.tscn" id="2_epm6x"]
 [ext_resource type="AudioStream" uid="uid://b5fy1xk4j1wrw" path="res://assets/music/Kenobit_Bit_Beat_Beach.ogg" id="3_iik3r"]
+[ext_resource type="AudioStream" uid="uid://dy0rvx4m7b6i8" path="res://assets/sfx/thief.ogg" id="4_q6uxa"]
 
 [node name="Shop" type="Node2D"]
 script = ExtResource("1_edlot")
@@ -26,6 +27,10 @@ centered = false
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_iik3r")
 volume_db = -40.0
+
+[node name="ThiefStinger" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_q6uxa")
+volume_db = -12.0
 
 [connection signal="bank_changed" from="." to="HUD" method="_on_shop_bank_changed"]
 [connection signal="cash_changed" from="." to="HUD" method="_on_shop_cash_changed"]

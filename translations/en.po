@@ -34,8 +34,8 @@ msgid "La chiamo per ricordarle di saldare la fattura di 10.000 soldi."
 msgstr "I'm calling to remind you of your invoice for 10.000 moneys."
 
 #: game_scenes/Intro.tscn
-msgid "Certo, certo, ho ancora 7 giorni, non si preoccupi…"
-msgstr "Sure, sure, I still have 7 days, don't worry…"
+msgid "Certo, certo, ho ancora 5 giorni, non si preoccupi…"
+msgstr "Sure, sure, I still have 5 days, don't worry…"
 
 #: game_scenes/Intro.tscn
 msgid "Continua »"
@@ -909,7 +909,7 @@ msgid "Al ladro!"
 msgstr "Thief!"
 
 #: game_scenes/shop.gd
-msgid "Un ladro selvaggio appare."
+msgid "Appare un ladro selvaggio!"
 msgstr "A wild thief appears."
 
 #: game_scenes/Privacy.tscn
@@ -968,6 +968,10 @@ msgstr "Game Over!"
 #: game_scenes/GameOver.tscn
 msgid "Fai un breve sondaggio"
 msgstr "Take a brief survey"
+
+#: game_scenes/GameOver.tscn
+msgid "Per il sondaggio, ti servirà questo numero"
+msgstr "You'll need this number for the survey"
 
 #: game_scenes/GameOver.tscn
 msgid "Torna all'inizio"

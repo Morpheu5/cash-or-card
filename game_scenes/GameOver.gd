@@ -22,6 +22,8 @@ func _ready():
 	else:
 		%TitleLabel.text = tr("Game Over!")
 		%InfoText.text = gameOverText % Globals.bank_money
+	
+	%PIDLabel.text = Globals.participant_id_string
 
 func _on_survey_button_pressed():
 	var locale = TranslationServer.get_locale()
@@ -30,7 +32,6 @@ func _on_survey_button_pressed():
 		u = "https://qualtricsxmfv525fqw4.qualtrics.com/jfe/form/SV_6im4rtDltNhqjFY?PID=%s" % Globals.participant_id
 	else:
 		u = "https://qualtricsxmfv525fqw4.qualtrics.com/jfe/form/SV_9Ahy56rr3zyUVdc?PID=%s" % Globals.participant_id
-	print(u)
 	OS.shell_open(u)
 
 func _on_back_to_title_button_pressed():

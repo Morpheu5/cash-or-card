@@ -215,7 +215,7 @@ set cash = 0.0
 Sei stato derubato mentre andavi in banca! La polizia è arrivata troppo tardi per fermare il ladro e hai perso {{stolen_cash}} soldi! [ID:t8873a801e3]
 - Chiama l'assicurazione (recuperi {{potential_loss}} soldi, il premio salirà) [ID:t47f1d93a36]
 	do emit("log_request", { "dialogue_title": "street_robbery", "event_type": "player", "event": "make_insurance_claim", "loss": potential_loss })
-	do handle_insurance_claim(cash)
+	do handle_insurance_claim()
 	=> insurance_claim_end
 - Torna a casa (perdi {{stolen_cash}} soldi) [ID:tdad83184fe]
 	do emit("log_request", { "dialogue_title": "street_robbery", "event_type": "player", "event": "go_home", "loss": stolen_cash })
@@ -232,7 +232,7 @@ set cash = 0.0
 Sei stato rapinato in negozio! La polizia è arrivata troppo tardi per fermare il ladro e hai perso {{stolen_cash}} soldi! [ID:t29909e55c2]
 - Chiama l'assicurazione (recuperi {{potential_loss}} soldi, il premio salirà) [ID:tc20800c867]
 	do emit("log_request", { "dialogue_title": "shop_robbery", "event_type": "player", "event": "make_insurance_claim", "loss": potential_loss })
-	do handle_insurance_claim(cash)
+	do handle_insurance_claim()
 	=> insurance_claim_end
 - Chiudi e torna a casa (perdi {{stolen_cash}} soldi) [ID:t8a8611b98d]
 	do emit("log_request", { "dialogue_title": "shop_robbery", "event_type": "player", "event": "go_home", "loss": stolen_cash })

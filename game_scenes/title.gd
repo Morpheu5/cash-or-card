@@ -8,7 +8,8 @@ var privacy_scene = preload("res://game_scenes/Privacy.tscn")
 func _ready():
 	var date = Time.get_datetime_dict_from_system()
 	Globals.participant_id = "%02d%02d%02d%02d%02d%02d" % [date.year-2000, date.month, date.day, date.hour, date.minute, date.second ]
-	%ParticipantID.text = "%02d %02d %02d %02d %02d %02d" % [date.year-2000, date.month, date.day, date.hour, date.minute, date.second ]
+	Globals.participant_id_string = "%02d %02d %02d %02d %02d %02d" % [date.year-2000, date.month, date.day, date.hour, date.minute, date.second ]
+	%ParticipantID.text = Globals.participant_id_string
 	pass
 
 func _on_start_button_pressed():

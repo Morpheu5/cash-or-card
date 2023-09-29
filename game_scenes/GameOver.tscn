@@ -63,6 +63,18 @@ theme_override_constants/separation = 20
 layout_mode = 2
 text = "Fai un breve sondaggio"
 
+[node name="Label" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "Per il sondaggio, ti servirà questo numero"
+horizontal_alignment = 1
+
+[node name="PIDLabel" type="Label" parent="CanvasLayer/CenterContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+auto_translate = false
+localize_numeral_system = false
+horizontal_alignment = 1
+
 [node name="HSeparator3" type="HSeparator" parent="CanvasLayer/CenterContainer/VBoxContainer"]
 visibility_layer = 0
 layout_mode = 2

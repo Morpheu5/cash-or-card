@@ -39,7 +39,7 @@ msgid "La chiamo per ricordarle di saldare la fattura di 10.000 soldi."
 msgstr ""
 
 #: game_scenes/Intro.tscn
-msgid "Certo, certo, ho ancora 7 giorni, non si preoccupi…"
+msgid "Certo, certo, ho ancora 5 giorni, non si preoccupi…"
 msgstr ""
 
 #: game_scenes/Intro.tscn
@@ -440,6 +440,10 @@ msgctxt "ta2bd7bbd9e"
 msgid ""
 msgstr ""
 
+#: game_scenes/shop.gd
+msgid ""
+msgstr ""
+
 #: assets/main.dialogue
 msgctxt "tc2b37b1d9d"
 msgid "POS (commissione: {{100 * get_fee("card", amount)}}%)"
@@ -677,7 +681,7 @@ msgid "Al ladro!"
 msgstr ""
 
 #: game_scenes/shop.gd
-msgid "Un ladro selvaggio appare."
+msgid "Appare un ladro selvaggio!"
 msgstr ""
 
 #: game_scenes/Privacy.tscn
@@ -715,6 +719,10 @@ msgstr ""
 
 #: game_scenes/GameOver.tscn
 msgid "Fai un breve sondaggio"
+msgstr ""
+
+#: game_scenes/GameOver.tscn
+msgid "Per il sondaggio, ti servirà questo numero"
 msgstr ""
 
 #: game_scenes/GameOver.tscn

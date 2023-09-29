@@ -152,7 +152,7 @@ func radio_on():
 	
 func run():
 	print("Day: ", day)
-	if day < 7:
+	if day < 5:
 		await initialize_day()
 	else:
 		await lights_out()
@@ -274,7 +274,7 @@ func new_customer():
 	
 	customer_has_explained_conspiracy = false
 	select_payment_method(customer)
-	amount = snapped(randf_range(0.05, 100.0), 0.01)
+	amount = snapped(randf_range(0.98, 150.0), 0.01)
 	amount_str = ("%.2f" % amount).replace(".", ",")
 	amountLabel.text = tr("Totale: %s") % amount_str
 	electronic_offered = false
@@ -310,13 +310,14 @@ func shop_robbery():
 	radio_off(true)
 	for i in customers.size():
 		customer_walks_away(true)
-	# TODO Add robbery stinger
+	$ThiefStinger.play()
 	stolen_cash = cash
 	potential_loss = max(0, stolen_cash - insurance_excess)
 	var t = randi_range(1, 3)
 	customerPicture.texture = load("res://assets/faces/Thief%02d.png" % t)
 	customerNameLabel.text = tr("Al ladro!")
-	amountLabel.text = tr("Un ladro selvaggio appare.")
+	customerDescription.text = ""
+	amountLabel.text = tr("Appare un ladro selvaggio!")
 	await show_info_panel()
 	start_dialogue(main_dialog, "shop_robbery")
 	customers = []
