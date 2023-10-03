@@ -1,6 +1,7 @@
 extends BaseDialogueTestScene
 
 const Balloon = preload("res://game_scenes/balloon/balloon.tscn")
+const SmallBalloon = preload("res://game_scenes/balloon/small_balloon.tscn")
 const Walker = preload("res://game_scenes/walker.tscn")
 const game_over_scene = preload("res://game_scenes/GameOver.tscn")
 
@@ -216,7 +217,8 @@ func initialize_day():
 	await show_day_card()
 
 func start_dialogue(res: DialogueResource, chap: String):
-	var balloon: Node = Balloon.instantiate()
+	var is_small_window: bool = ProjectSettings.get_setting("display/window/size/viewport_width") < 2000
+	var balloon: Node = (SmallBalloon if is_small_window else Balloon).instantiate()
 	balloon.set_display_folded(true)
 	add_child(balloon)
 	balloon.start(res, chap)

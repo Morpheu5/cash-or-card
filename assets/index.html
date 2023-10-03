@@ -119,6 +119,25 @@ body {
 }
 		</style>
 		$GODOT_HEAD_INCLUDE
+		
+		<!-- Matomo -->
+		<script>
+		  var _paq = window._paq = window._paq || [];
+		  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+		  _paq.push(["setDoNotTrack", false]); // DNHonor DNT preference
+		  _paq.push(["disableCookies"]);      // Do not use first-party cookies for tracking so we don't need a cookie banner
+		  _paq.push(['trackPageView']);
+		  _paq.push(['enableLinkTracking']);
+		  (function() {
+		    var u="https://merida.morpheu5.net/";
+		    _paq.push(['setTrackerUrl', u+'balmyogre']);
+		    _paq.push(['setSiteId', '7']);
+		    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+		    g.async=true; g.src=u+'prettyprincess'; s.parentNode.insertBefore(g,s);
+		  })();
+		</script>
+		<noscript><p><img src="https://merida.morpheu5.net/balmyogre?idsite=7&amp;rec=1" style="border:0;" alt="" /></p></noscript>
+		<!-- End Matomo Code -->
 	</head>
 	<body>
 		<canvas id="canvas">
