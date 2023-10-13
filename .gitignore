@@ -7,8 +7,6 @@ classes/logger.gd
 
 ### LaTeX stuff
 
-*.pdf
-
 ## Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
